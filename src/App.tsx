@@ -58,7 +58,6 @@ function Hero() {
     <Nav />
     <div className="hero-sky" aria-hidden="true"><span /><span /><img src={productOrb} alt="" /></div>
     <div className="hero-copy" data-reveal>
-      <span className="tiny-label">A DESKTOP OPERATOR FOR MAC</span>
       <h1>Say what you need.<br /><em>Motus gets it moving.</em></h1>
       <p>One quiet place to start work across your apps, files, browser, and terminal.</p>
       <div className="hero-actions"><Link href="#waitlist" className="button button-dark">Download for Mac <ArrowDown size={14} /></Link><Link href="#product" className="button button-ghost">See the app</Link></div>
@@ -105,8 +104,8 @@ function VoiceActionDemo({ videoRef, activeStep, onTimeUpdate }: { videoRef: Ref
       <div className="demo-video-frame">
         <div className="demo-video-bar"><span><i /><i /><i /></span><small>MOTUS · NATIVE VOICE DEMO</small><em>LIVE</em></div>
         <div className="demo-video-viewport" onContextMenu={(event) => event.preventDefault()}>
-          <video ref={videoRef} autoPlay muted loop playsInline preload="auto" tabIndex={-1} aria-hidden="true" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" draggable={false} onContextMenu={(event) => event.preventDefault()} onDragStart={(event) => event.preventDefault()} onTimeUpdate={(event) => onTimeUpdate(event.currentTarget.currentTime)}>
-            <source src="/product/motus-native-voice-demo.mov" type="video/mp4" />
+          <video ref={videoRef} autoPlay muted loop playsInline preload="auto" poster="/product/motus-native-voice-demo-poster.jpg" tabIndex={-1} aria-hidden="true" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" draggable={false} onContextMenu={(event) => event.preventDefault()} onDragStart={(event) => event.preventDefault()} onTimeUpdate={(event) => onTimeUpdate(event.currentTarget.currentTime)}>
+            <source src="/product/motus-native-voice-demo.mp4" type="video/mp4" />
           </video>
         </div>
       </div>
@@ -134,7 +133,7 @@ function HowItWorks() {
 
   return <section className="how-section" id="how">
     <div className="how-heading" data-reveal><span className="index light">02 / HOW IT WORKS</span><h2>From a sentence<br />to a finished task.</h2></div>
-    <div className="steps-grid" aria-label="Demo chapters">{steps.map(({ number, icon: Icon, title, body }, index) => <button type="button" key={number} className={`step-card ${activeStep === index ? 'active' : ''}`} onClick={() => selectStep(index)} aria-pressed={activeStep === index} data-reveal><div className="step-top"><span>{number}</span><Icon size={18} /></div><h3>{title}</h3><p>{body}</p><span className="step-cue">Jump to this moment</span></button>)}</div>
+    <div className="steps-grid" aria-label="Demo chapters">{steps.map(({ number, icon: Icon, title, body }, index) => <button type="button" key={number} className={`step-card ${activeStep === index ? 'active' : ''}`} onClick={() => selectStep(index)} aria-pressed={activeStep === index}><div className="step-top"><span>{number}</span><Icon size={18} /></div><h3>{title}</h3><p>{body}</p><span className="step-cue">Jump to this moment</span></button>)}</div>
     <VoiceActionDemo videoRef={videoRef} activeStep={activeStep} onTimeUpdate={syncStepToVideo} />
   </section>;
 }
