@@ -1,7 +1,8 @@
-import { FormEvent, useEffect, useState, type ReactNode } from 'react';
-import { ArrowDown, ArrowRight, Check, ChevronDown, Command, FileText, FolderOpen, Globe2, Menu, Mic, MousePointer2, ShieldCheck, TerminalSquare, X } from 'lucide-react';
+import { FormEvent, useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
+import { ArrowDown, ArrowRight, Check, ChevronDown, FileText, FolderOpen, Globe2, Menu, Mic, MousePointer2, ShieldCheck, TerminalSquare, X } from 'lucide-react';
 
-const productScreen = '/product/motus-beta.png';
+const productScreen = '/product/motus-workspace.png';
+const betaScreen = '/product/motus-beta.png';
 const productOrb = '/product/motus-orb.png';
 const appIcon = '/product/motus-app-icon.png';
 
@@ -71,9 +72,10 @@ function Product() {
   return <section className="product-section" id="product">
     <div className="section-intro" data-reveal><span className="index">01 / PRODUCT</span><h2>The app stays small.<br />The work does not.</h2><p>Motus lives close to the work, without asking you to move your day into another dashboard.</p></div>
     <div className="real-product" data-reveal>
-      <div className="product-note"><span>REAL PRODUCT SCREEN</span><p>The current Motus beta access experience, captured directly from the shipped macOS app.</p></div>
-      <div className="screen-stage"><div className="screen-window"><div className="window-dots"><i /><i /><i /></div><img src={productScreen} alt="The real Motus beta app access screen" /></div><div className="screen-caption"><span>Motus beta</span><span>macOS · current build</span></div></div>
+      <div className="product-note"><span>REAL PRODUCT SCREEN</span><p>The signed-in Motus workspace, captured from the current macOS app. Account details have been removed for privacy.</p></div>
+      <div className="screen-stage"><div className="screen-window workspace-window"><div className="window-dots"><i /><i /><i /></div><img src={productScreen} alt="The real signed-in Motus workspace" /></div><div className="screen-caption"><span>Motus workspace</span><span>macOS · current build</span></div></div>
     </div>
+    <div className="access-strip" data-reveal><div><span className="eyebrow">CURRENT ACCESS FLOW</span><h3>Join now. Download when your invite lands.</h3><p>The beta opens in small groups so every release gets real feedback.</p><Link href="#waitlist" className="button button-dark">Join the waitlist <ArrowRight size={14} /></Link></div><figure><img src={betaScreen} alt="The real Motus beta access screen" /><figcaption>Captured from the shipped Motus app</figcaption></figure></div>
   </section>;
 }
 
@@ -83,14 +85,57 @@ const steps = [
   { number: '03', icon: Check, title: 'Get the result.', body: 'It returns with what changed, what completed, and what still needs you.' },
 ];
 
+const demoCuePoints = [0, 4.2, 11.3];
+
+function VoiceActionDemo({ videoRef, activeStep, onTimeUpdate }: { videoRef: RefObject<HTMLVideoElement | null>; activeStep: number; onTimeUpdate: (time: number) => void }) {
+  return <div className="voice-demo" data-reveal>
+    <div className="voice-demo-copy">
+      <div className="demo-kicker"><span className="eyebrow">NATIVE VOICE, IN ACTION</span><span className="demo-live"><i /> PRODUCT DEMO</span></div>
+      <div>
+        <h3>Speak it.<br />See it happen.</h3>
+        <p>Watch Motus turn a natural voice request into visible action, right on the Mac.</p>
+      </div>
+      <div className="demo-details" aria-label={`Current demo phase: ${steps[activeStep].title}`}>
+        {steps.map((step, index) => <span key={step.number} className={activeStep === index ? 'active' : ''}><b>{step.number}</b>{step.title}</span>)}
+      </div>
+    </div>
+
+    <div className="demo-video-stage">
+      <div className="demo-video-glow" aria-hidden="true" />
+      <div className="demo-video-frame">
+        <div className="demo-video-bar"><span><i /><i /><i /></span><small>MOTUS · NATIVE VOICE DEMO</small><em>LIVE</em></div>
+        <div className="demo-video-viewport" onContextMenu={(event) => event.preventDefault()}>
+          <video ref={videoRef} autoPlay muted loop playsInline preload="auto" tabIndex={-1} aria-hidden="true" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" draggable={false} onContextMenu={(event) => event.preventDefault()} onDragStart={(event) => event.preventDefault()} onTimeUpdate={(event) => onTimeUpdate(event.currentTarget.currentTime)}>
+            <source src="/product/motus-native-voice-demo.mov" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+      <div className="demo-video-caption"><span>REAL PRODUCT · MACOS</span><span>SYNCED TO THE STEPS</span></div>
+    </div>
+  </div>;
+}
+
 function HowItWorks() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const selectStep = (index: number) => {
+    const video = videoRef.current;
+    setActiveStep(index);
+    if (!video) return;
+    video.currentTime = demoCuePoints[index];
+    void video.play().catch(() => undefined);
+  };
+
+  const syncStepToVideo = (time: number) => {
+    const nextStep = time >= demoCuePoints[2] ? 2 : time >= demoCuePoints[1] ? 1 : 0;
+    setActiveStep((current) => current === nextStep ? current : nextStep);
+  };
+
   return <section className="how-section" id="how">
     <div className="how-heading" data-reveal><span className="index light">02 / HOW IT WORKS</span><h2>From a sentence<br />to a finished task.</h2></div>
-    <div className="steps-grid">{steps.map(({ number, icon: Icon, title, body }) => <article key={number} data-reveal><div className="step-top"><span>{number}</span><Icon size={18} /></div><h3>{title}</h3><p>{body}</p></article>)}</div>
-    <div className="command-demo" data-reveal>
-      <div className="command-copy"><span className="eyebrow">ONE REQUEST</span><blockquote>“Find the launch notes, turn the decisions into a brief, and save it beside the original.”</blockquote><div className="command-meta"><span><Command size={13} /> Spoken or typed</span><span>3 apps used</span></div></div>
-      <div className="activity-card"><div className="activity-head"><span><i /> Motus is working</span><small>00:18</small></div><div className="activity-row done"><span><FolderOpen />Find launch notes</span><Check /></div><div className="activity-row done"><span><FileText />Extract decisions</span><Check /></div><div className="activity-row active"><span><Globe2 />Create team brief</span><i /></div><div className="activity-result"><ShieldCheck /><span><b>Result will be verified</b>Before Motus marks it done</span></div></div>
-    </div>
+    <div className="steps-grid" aria-label="Demo chapters">{steps.map(({ number, icon: Icon, title, body }, index) => <button type="button" key={number} className={`step-card ${activeStep === index ? 'active' : ''}`} onClick={() => selectStep(index)} aria-pressed={activeStep === index} data-reveal><div className="step-top"><span>{number}</span><Icon size={18} /></div><h3>{title}</h3><p>{body}</p><span className="step-cue">Jump to this moment</span></button>)}</div>
+    <VoiceActionDemo videoRef={videoRef} activeStep={activeStep} onTimeUpdate={syncStepToVideo} />
   </section>;
 }
 
