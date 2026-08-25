@@ -1,11 +1,11 @@
-import { FormEvent, useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
-import { ArrowDown, ArrowRight, Check, ChevronDown, FileText, FolderOpen, Globe2, Menu, Mic, MousePointer2, ShieldCheck, TerminalSquare, X } from 'lucide-react';
+import { FormEvent, useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowRight, BookOpen, Check, ChevronDown, Code2, FileSearch, FileText, FolderOpen, Globe2, Image, Menu, MessageSquare, Mic, MousePointer2, PenLine, Play, Search, ShieldCheck, Sparkles, X } from 'lucide-react';
 
-const productScreen = '/product/motus-workspace.png';
-const betaScreen = '/product/motus-beta.png';
-const productOrb = '/product/motus-orb.png';
-const appIcon = '/product/motus-app-icon.png';
-
+const workspace = '/product/motus-prompt-capture.png';
+const heroTaskVideo = '/product/motus-hero.mp4';
+const beta = '/product/motus-beta.png';
+const orb = '/product/motus-orb.png';
+const icon = '/product/motus-app-icon.png';
 const faqs = [
   ['What is Motus?', 'Motus is a desktop operator for macOS. Tell it what outcome you need and it can work across files, the browser, documents, and terminal to get there.'],
   ['Can I see what it is doing?', 'Yes. Motus keeps its current action visible and returns with a clear record of what changed.'],
@@ -13,157 +13,93 @@ const faqs = [
   ['Does joining the waitlist cost anything?', 'No. Joining is free and does not ask for payment details.'],
 ];
 
-function Link({ href, className = '', children, onClick }: { href: string; className?: string; children: ReactNode; onClick?: () => void }) {
-  return <a href={href} className={className} onClick={onClick}>{children}</a>;
-}
-
-function Logo() {
-  return <Link href="#top" className="brand"><img src={appIcon} alt="" /><span>motus</span></Link>;
-}
-
+function Link({ href, className = '', children, onClick }: { href: string; className?: string; children: ReactNode; onClick?: () => void }) { return <a href={href} className={className} onClick={onClick}>{children}</a>; }
+function Logo() { return <Link href="#top" className="brand"><img src={icon} alt="" /><span>motus</span></Link>; }
 function RevealMotion() {
   useEffect(() => {
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      items.forEach((item) => item.classList.add('revealed'));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    items.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
-  }, []);
-  return null;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach((item) => item.classList.add('revealed')); return; }
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+    items.forEach((item) => observer.observe(item)); return () => observer.disconnect();
+  }, []); return null;
 }
-
 function Nav() {
   const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
-  return <header className="site-nav">
-    <Logo />
-    <nav className="desktop-links" aria-label="Main navigation"><Link href="#product">Product</Link><Link href="#how">How it works</Link><Link href="#details">Details</Link></nav>
-    <Link href="#waitlist" className="nav-button">Join waitlist <ArrowRight size={13} /></Link>
-    <button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
-    <div className={`mobile-menu ${open ? 'open' : ''}`}><Link href="#product" onClick={close}>Product</Link><Link href="#how" onClick={close}>How it works</Link><Link href="#details" onClick={close}>Details</Link><Link href="#waitlist" onClick={close}>Join waitlist</Link></div>
-  </header>;
+  return <><header className="site-nav"><Logo /><nav className="nav-links"><Link href="#product">Product</Link><Link href="#features">Features</Link><Link href="#how">How it works</Link><Link href="#details">Details</Link></nav><Link href="#waitlist" className="pill pill-dark nav-cta">Get early access</Link><button className="menu-toggle" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></header><div className={`mobile-nav ${open ? 'open' : ''}`}>{['product', 'features', 'how', 'details', 'waitlist'].map((item) => <Link key={item} href={`#${item}`} onClick={() => setOpen(false)}>{item === 'how' ? 'How it works' : item.charAt(0).toUpperCase() + item.slice(1)}</Link>)}</div></>;
 }
-
+function HeroTaskVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const play = () => {
+      video.defaultMuted = true;
+      video.muted = true;
+      video.controls = false;
+      void video.play().catch(() => undefined);
+    };
+    play();
+    video.addEventListener('loadeddata', play);
+    video.addEventListener('canplay', play);
+    const resume = () => { if (!document.hidden) play(); };
+    document.addEventListener('visibilitychange', resume);
+    return () => {
+      video.removeEventListener('loadeddata', play);
+      video.removeEventListener('canplay', play);
+      document.removeEventListener('visibilitychange', resume);
+    };
+  }, []);
+  return <video ref={videoRef} autoPlay muted loop playsInline preload="auto" controls={false} disablePictureInPicture disableRemotePlayback controlsList="nodownload nofullscreen noplaybackrate noremoteplayback" tabIndex={-1} aria-label="Motus executing a real task on macOS" onContextMenu={(event) => event.preventDefault()}><source src={heroTaskVideo} type="video/mp4" /></video>;
+}
 function Hero() {
-  return <section className="hero" id="top">
-    <Nav />
-    <div className="hero-sky" aria-hidden="true"><span /><span /><img src={productOrb} alt="" /></div>
-    <div className="hero-copy" data-reveal>
-      <h1>Say what you need.<br /><em>Motus gets it moving.</em></h1>
-      <p>One quiet place to start work across your apps, files, browser, and terminal.</p>
-      <div className="hero-actions"><Link href="#waitlist" className="button button-dark">Download for Mac <ArrowDown size={14} /></Link><Link href="#product" className="button button-ghost">See the app</Link></div>
-      <small>Download invitations are currently sent through the waitlist.</small>
-    </div>
-    <div className="hero-edge left" /><div className="hero-edge right" />
-  </section>;
+  return <section className="hero" id="top"><Nav /><div className="announcement">Now accepting a new group of early-access users <ArrowRight /></div><div className="hero-copy" data-reveal><span className="kicker">Meet Motus</span><h1>Your work,<br /><span>already in motion.</span></h1><p>A quiet desktop operator that turns a sentence into finished work across your Mac.</p><Link href="#waitlist" className="pill pill-dark">Join the waitlist <ArrowRight /></Link></div><figure className="hero-product" data-reveal><div className="product-chrome"><span><i /><i /><i /></span><small>MOTUS · LIVE TASK</small><em>5 SEC LOOP</em></div><div className="hero-media"><HeroTaskVideo /></div><figcaption><span>Real task, captured on macOS.</span><span>Calculator · result complete</span></figcaption></figure></section>;
 }
-
 function Product() {
   return <section className="product-section" id="product">
-    <div className="section-intro" data-reveal><span className="index">01 / PRODUCT</span><h2>The app stays small.<br />The work does not.</h2><p>Motus lives close to the work, without asking you to move your day into another dashboard.</p></div>
-    <div className="real-product" data-reveal>
-      <div className="product-note"><span>REAL PRODUCT SCREEN</span><p>The signed-in Motus workspace, captured from the current macOS app. Account details have been removed for privacy.</p></div>
-      <div className="screen-stage"><div className="screen-window workspace-window"><div className="window-dots"><i /><i /><i /></div><img src={productScreen} alt="The real signed-in Motus workspace" /></div><div className="screen-caption"><span>Motus workspace</span><span>macOS · current build</span></div></div>
+    <div className="intro-row" data-reveal><span className="section-label">01 / THE DESKTOP OS</span><div><h2>Build your day around outcomes.</h2><p>Not tabs. Not dashboards. Motus stays close to the work and brings the right tools together only when you need them.</p></div></div>
+    <div className="trust-row" data-reveal><span>One starting point for</span><b>FILES</b><b>BROWSER</b><b>DOCUMENTS</b><b>TERMINAL</b><b>VOICE</b></div>
+    <div className="workflow-stories">
+      <article className="workflow-story" data-reveal>
+        <div className="workflow-copy"><small>01 · START</small><span className="story-number">01</span><h3>Say it how you mean it.</h3><p>Use voice or text. No command syntax, setup ritual, or prompt handbook required.</p><div className="story-note"><MessageSquare /><span><b>Real prompt</b>Captured directly from the current Motus app.</span></div></div>
+        <figure className="workflow-media prompt-media"><div className="media-bar"><span><i /><i /><i /></span><small>MOTUS · NEW CONVERSATION</small><em>LIVE APP</em></div><div className="media-screen"><img src={workspace} alt="Motus workspace with a launch-brief prompt ready to send" /></div><figcaption><span>Natural language in</span><span>No prompt handbook required</span></figcaption></figure>
+      </article>
+      <article className="workflow-story workflow-story-reverse" data-reveal>
+        <div className="workflow-copy"><small>02 · FOLLOW</small><span className="story-number">02</span><h3>Watch the task move.</h3><p>Motus keeps the active step visible while your request moves across the right tools.</p><div className="story-note"><Play /><span><b>Product film</b>A real voice interaction, captured on macOS.</span></div></div>
+        <figure className="workflow-media motion-media"><div className="media-bar"><span><i /><i /><i /></span><small>MOTUS · NATIVE VOICE</small><em>PLAYING</em></div><div className="media-screen"><video autoPlay muted loop playsInline poster="/product/motus-native-voice-demo-poster.jpg"><source src="/product/motus-native-voice-demo.mp4" type="video/mp4" /></video><div className="privacy-veil" aria-hidden="true"><span className="active-dot">Working across the desktop</span></div></div><figcaption><span>Voice becomes visible action</span><span>Current macOS build</span></figcaption></figure>
+      </article>
+      <article className="workflow-story" data-reveal>
+        <div className="workflow-copy"><small>03 · FINISH</small><span className="story-number">03</span><h3>Leave with the result.</h3><p>Get a clear record of what changed, what completed, and what still needs your judgment.</p><div className="story-note"><Check /><span><b>Outcome ready</b>Review the work without reconstructing the process.</span></div></div>
+        <figure className="workflow-media result-media"><div className="result-backdrop"><img src={workspace} alt="Motus workspace behind a completed result" /></div><div className="result-sheet"><div className="result-check"><Check /></div><small>TASK COMPLETE</small><h4>Launch brief ready.</h4><p>Key decisions organized, owners flagged, and the brief is ready to review.</p><div className="result-file"><FileText /><span><b>Launch brief</b><small>Draft · ready to review</small></span><ArrowRight /></div></div><figcaption><span>One request</span><span>A usable result</span></figcaption></figure>
+      </article>
     </div>
-    <div className="access-strip" data-reveal><div><span className="eyebrow">CURRENT ACCESS FLOW</span><h3>Join now. Download when your invite lands.</h3><p>The beta opens in small groups so every release gets real feedback.</p><Link href="#waitlist" className="button button-dark">Join the waitlist <ArrowRight size={14} /></Link></div><figure><img src={betaScreen} alt="The real Motus beta access screen" /><figcaption>Captured from the shipped Motus app</figcaption></figure></div>
   </section>;
 }
-
-const steps = [
-  { number: '01', icon: Mic, title: 'Ask naturally.', body: 'Use your voice or type the result you want. No command language to learn.' },
-  { number: '02', icon: MousePointer2, title: 'Watch it work.', body: 'Motus moves through the right apps and keeps the active step in view.' },
-  { number: '03', icon: Check, title: 'Get the result.', body: 'It returns with what changed, what completed, and what still needs you.' },
+const capabilities = [
+  { icon: MessageSquare, title: 'Chat naturally', text: 'Type what you need in plain language and keep the work moving in one conversation.', focus: 'composer', tag: 'New conversation' },
+  { icon: Search, title: 'Search across work', text: 'Find past conversations and return to useful context without starting over.', focus: 'sidebar', tag: 'Search & chats' },
+  { icon: FolderOpen, title: 'Organize projects', text: 'Keep related conversations, source material, and outcomes together by project.', focus: 'sidebar', tag: 'Projects' },
+  { icon: BookOpen, title: 'Build a library', text: 'Collect reusable material so knowledge stays available for the next task.', focus: 'sidebar', tag: 'Library' },
+  { icon: Globe2, title: 'Research the web', text: 'Search the web and turn findings into a concise, usable response.', focus: 'modes', tag: 'Deep research' },
+  { icon: Image, title: 'Create images', text: 'Move from a written idea to a visual starting point from the same workspace.', focus: 'modes', tag: 'Create an image' },
+  { icon: PenLine, title: 'Write and refine', text: 'Draft, rewrite, summarize, and shape documents through natural conversation.', focus: 'modes', tag: 'Smart writing' },
+  { icon: Code2, title: 'Work with code', text: 'Ask for implementation help, investigate problems, and develop technical work.', focus: 'modes', tag: 'AI coding' },
 ];
 
-const demoCuePoints = [0, 4.2, 11.3];
-
-function VoiceActionDemo({ videoRef, activeStep, onTimeUpdate }: { videoRef: RefObject<HTMLVideoElement | null>; activeStep: number; onTimeUpdate: (time: number) => void }) {
-  return <div className="voice-demo" data-reveal>
-    <div className="voice-demo-copy">
-      <div className="demo-kicker"><span className="eyebrow">NATIVE VOICE, IN ACTION</span><span className="demo-live"><i /> PRODUCT DEMO</span></div>
-      <div>
-        <h3>Speak it.<br />See it happen.</h3>
-        <p>Watch Motus turn a natural voice request into visible action, right on the Mac.</p>
-      </div>
-      <div className="demo-details" aria-label={`Current demo phase: ${steps[activeStep].title}`}>
-        {steps.map((step, index) => <span key={step.number} className={activeStep === index ? 'active' : ''}><b>{step.number}</b>{step.title}</span>)}
-      </div>
-    </div>
-
-    <div className="demo-video-stage">
-      <div className="demo-video-glow" aria-hidden="true" />
-      <div className="demo-video-frame">
-        <div className="demo-video-bar"><span><i /><i /><i /></span><small>MOTUS · NATIVE VOICE DEMO</small><em>LIVE</em></div>
-        <div className="demo-video-viewport" onContextMenu={(event) => event.preventDefault()}>
-          <video ref={videoRef} autoPlay muted loop playsInline preload="auto" poster="/product/motus-native-voice-demo-poster.jpg" tabIndex={-1} aria-hidden="true" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" draggable={false} onContextMenu={(event) => event.preventDefault()} onDragStart={(event) => event.preventDefault()} onTimeUpdate={(event) => onTimeUpdate(event.currentTarget.currentTime)}>
-            <source src="/product/motus-native-voice-demo.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
-      <div className="demo-video-caption"><span>REAL PRODUCT · MACOS</span><span>SYNCED TO THE STEPS</span></div>
-    </div>
-  </div>;
+function Features() {
+  return <section className="features-section" id="features"><div className="features-heading" data-reveal><span className="section-label">02 / EVERYTHING IN ONE PLACE</span><div><h2>What Motus can do.</h2><p>Motus is the working layer between an idea and an outcome. Start by typing or speaking, choose a focused mode when it helps, and keep the context in the same conversation.</p></div></div><div className="capability-grid">{capabilities.map(({ icon: Icon, title, text, focus, tag }, index) => <article className="capability-card" data-reveal key={title}><div className={`capability-shot focus-${focus}`}><img src={workspace} alt={`Motus workspace showing ${title.toLowerCase()}`} /><span className="shot-focus"><Icon />{tag}</span></div><div className="capability-copy"><span>0{index + 1}</span><Icon /><h3>{title}</h3><p>{text}</p></div></article>)}</div>
+    <div className="chat-story" data-reveal><div className="chat-story-copy"><span className="section-label">WHILE CHATTING WITH MOTUS</span><h3>From what you type<br />to what comes back.</h3><p>A conversation is more than a reply. Motus can understand the request, work through the components, and return a result you can inspect and use.</p><div className="chat-legend"><span><i /> Your request</span><span><i /> Motus working</span><span><i /> Finished response</span></div></div><div className="chat-sequence"><div className="chat-panel request-panel"><div className="panel-label"><span>01</span>TYPE A REQUEST</div><div className="prompt-box"><p>Prepare a launch brief from my research, organize the supporting files, and tell me what is missing.</p><div><span>＋</span><small>Search Web</small><Mic /><b><ArrowRight /></b></div></div></div><div className="chat-panel working-panel"><div className="panel-label"><span>02</span>WATCH THE COMPONENTS</div><div className="action-list"><p><FileSearch /><span><b>Reviewing research</b><small>6 sources found</small></span><Check /></p><p><FolderOpen /><span><b>Organizing files</b><small>Launch / Supporting</small></span><Check /></p><p className="active"><PenLine /><span><b>Writing launch brief</b><small>Drafting overview…</small></span><i /></p></div></div><div className="chat-panel response-panel"><div className="panel-label"><span>03</span>USE THE RESPONSE</div><div className="response-card"><div className="response-mark"><Check /></div><small>Task completed</small><h4>Your launch brief is ready.</h4><p>I organized six source files, drafted the brief, and flagged two missing launch dates for your review.</p><div><FileText /><span><b>Launch brief</b><small>Draft · ready to review</small></span><ArrowRight /></div></div></div></div></div>
+  </section>;
 }
-
+const chapters = [{ time: 0, icon: Mic, title: 'Ask naturally', text: 'Start with your voice or keyboard.' }, { time: 4.2, icon: MousePointer2, title: 'Motus acts', text: 'The right tools move into place.' }, { time: 11.3, icon: Check, title: 'Review the result', text: 'Stay in control from start to finish.' }];
 function HowItWorks() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [activeStep, setActiveStep] = useState(0);
-
-  const selectStep = (index: number) => {
-    const video = videoRef.current;
-    setActiveStep(index);
-    if (!video) return;
-    video.currentTime = demoCuePoints[index];
-    void video.play().catch(() => undefined);
-  };
-
-  const syncStepToVideo = (time: number) => {
-    const nextStep = time >= demoCuePoints[2] ? 2 : time >= demoCuePoints[1] ? 1 : 0;
-    setActiveStep((current) => current === nextStep ? current : nextStep);
-  };
-
-  return <section className="how-section" id="how">
-    <div className="how-heading" data-reveal><span className="index light">02 / HOW IT WORKS</span><h2>From a sentence<br />to a finished task.</h2></div>
-    <div className="steps-grid" aria-label="Demo chapters">{steps.map(({ number, icon: Icon, title, body }, index) => <button type="button" key={number} className={`step-card ${activeStep === index ? 'active' : ''}`} onClick={() => selectStep(index)} aria-pressed={activeStep === index}><div className="step-top"><span>{number}</span><Icon size={18} /></div><h3>{title}</h3><p>{body}</p><span className="step-cue">Jump to this moment</span></button>)}</div>
-    <VoiceActionDemo videoRef={videoRef} activeStep={activeStep} onTimeUpdate={syncStepToVideo} />
-  </section>;
+  const video = useRef<HTMLVideoElement>(null); const [active, setActive] = useState(0);
+  const select = (index: number) => { setActive(index); if (video.current) { video.current.currentTime = chapters[index].time; void video.current.play().catch(() => undefined); } };
+  return <section className="how-section" id="how"><div className="intro-row" data-reveal><span className="section-label">02 / HOW IT WORKS</span><div><h2>Workflow with less friction.</h2><p>One request becomes a visible sequence of useful actions.</p></div></div><div className="chapter-grid" data-reveal>{chapters.map(({ icon: Icon, title, text }, i) => <button key={title} className={active === i ? 'active' : ''} onClick={() => select(i)}><span>0{i + 1}</span><Icon /><b>{title}</b><small>{text}</small></button>)}</div><div className="film" data-reveal><div className="film-copy"><span className="section-label light">REAL PRODUCT · MACOS</span><h3>See Motus<br />take the floor.</h3><p>A natural voice request becomes visible action, right on the Mac.</p><button onClick={() => video.current?.play()}><Play /> Play demo</button></div><div className="film-screen"><div className="film-bar"><i /><i /><i /><span>MOTUS · NATIVE VOICE</span></div><video ref={video} autoPlay muted loop playsInline poster="/product/motus-native-voice-demo-poster.jpg" onTimeUpdate={(e) => { const t = e.currentTarget.currentTime; setActive(t >= 11.3 ? 2 : t >= 4.2 ? 1 : 0); }}><source src="/product/motus-native-voice-demo.mp4" type="video/mp4" /></video></div></div></section>;
 }
-
 function Details() {
-  return <section className="details-section" id="details">
-    <div className="details-heading" data-reveal><span className="index">03 / DETAILS</span><h2>Built around the Mac<br />you already use.</h2></div>
-    <div className="detail-grid">
-      <article className="detail-wide" data-reveal><div><span className="eyebrow">WORKS ACROSS APPS</span><h3>Context travels with the task.</h3><p>Move from a folder to the browser to a document without restating what you mean at every step.</p></div><div className="app-rail"><span><FolderOpen />Files</span><span><Globe2 />Browser</span><span><TerminalSquare />Terminal</span><span><FileText />Documents</span></div></article>
-      <article className="detail-card orb-card" data-reveal><img src={productOrb} alt="Motus app onboarding artwork" /><div><span>VOICE FIRST</span><h3>Start with the thought.</h3><p>Speak while the idea is fresh. Motus turns it into a workable outcome.</p></div></article>
-      <article className="detail-card plain-card" data-reveal><div className="verification-mark"><ShieldCheck /></div><div><span>VISIBLE BY DEFAULT</span><h3>No mystery spinner.</h3><p>See the current action and the evidence behind a completed result.</p></div></article>
-    </div>
-  </section>;
+  return <section className="details-section" id="details"><div className="intro-row" data-reveal><span className="section-label">03 / BUILT FOR THE MAC</span><div><h2>Small surface. Serious range.</h2><p>Motus fits into the way you already work, with visibility and control built in.</p></div></div><div className="detail-grid"><article className="detail-card image-detail" data-reveal><div className="detail-copy"><Sparkles /><span>REAL WORKSPACE</span><h3>A calm place to begin.</h3></div><img src={workspace} alt="Motus desktop workspace" /></article><article className="detail-card access-detail" data-reveal><div className="detail-copy"><ShieldCheck /><span>EARLY ACCESS</span><h3>Join now. Download when your invite lands.</h3><p>The beta opens in small groups so every release gets real feedback.</p></div><img src={beta} alt="Motus early access screen" /></article><article className="detail-card principle-detail" data-reveal><div className="principle-top"><Code2 /><span>BUILT-IN PRINCIPLES</span></div><div className="principles"><p><b>Visible by default</b><span>See the current action and the evidence behind a finished task.</span></p><p><b>Mac-native rhythm</b><span>Made for the desktop you already know.</span></p><p><b>You stay in control</b><span>Motus asks when judgment or permission is needed.</span></p></div></article></div></section>;
 }
-
-function FAQ() {
-  const [open, setOpen] = useState(0);
-  return <section className="faq-section"><div className="faq-title" data-reveal><span className="index">04 / QUESTIONS</span><h2>The useful details.</h2></div><div className="faq-list" data-reveal>{faqs.map(([question, answer], index) => <div className="faq-row" key={question}><button onClick={() => setOpen(open === index ? -1 : index)} aria-expanded={open === index}><span>{question}</span><ChevronDown className={open === index ? 'rotated' : ''} /></button><div className={`faq-answer ${open === index ? 'open' : ''}`}><p>{answer}</p></div></div>)}</div></section>;
-}
-
-function Waitlist() {
-  const [joined, setJoined] = useState(false);
-  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setJoined(true); };
-  return <section className="waitlist" id="waitlist"><div className="waitlist-orb"><img src={productOrb} alt="" /></div><div className="waitlist-copy" data-reveal><span className="eyebrow">EARLY ACCESS</span><h2>Your Mac is<br />one invite away.</h2><p>Join the waitlist for the Motus download. We are inviting people in small groups while the beta takes shape.</p>{joined ? <div className="joined-message"><Check /><div><b>You’re on the list.</b><span>We’ll email you when your download is ready.</span></div></div> : <form onSubmit={submit}><label htmlFor="waitlist-email">Email address</label><div className="email-field"><input id="waitlist-email" type="email" placeholder="you@email.com" required /><button type="submit">Join waitlist <ArrowRight size={14} /></button></div><small>No spam. Just your access update.</small></form>}</div></section>;
-}
-
-function Footer() {
-  return <footer className="footer"><Logo /><div><Link href="#product">Product</Link><Link href="#how">How it works</Link><Link href="#details">Details</Link><Link href="#waitlist">Waitlist</Link></div><span>© 2026 Motus AI</span></footer>;
-}
-
-export default function App() {
-  return <main><RevealMotion /><Hero /><Product /><HowItWorks /><Details /><FAQ /><Waitlist /><Footer /></main>;
-}
+function FAQ() { const [open, setOpen] = useState(0); return <section className="faq-section"><div data-reveal><span className="section-label">04 / COMMON QUESTIONS</span><h2>The useful details.</h2></div><div className="faq-list" data-reveal>{faqs.map(([q, a], i) => <div className="faq-item" key={q}><button onClick={() => setOpen(open === i ? -1 : i)} aria-expanded={open === i}><span>{q}</span><ChevronDown className={open === i ? 'rotated' : ''} /></button><div className={`answer ${open === i ? 'open' : ''}`}><p>{a}</p></div></div>)}</div></section>; }
+function Waitlist() { const [joined, setJoined] = useState(false); const submit = (e: FormEvent) => { e.preventDefault(); setJoined(true); }; return <section className="waitlist" id="waitlist" data-reveal><div className="waitlist-art"><img src={orb} alt="" /></div><div className="waitlist-copy"><span className="section-label light">EARLY ACCESS</span><h2>Put your work<br />in motion.</h2><p>Join the waitlist for the Motus download. We’re inviting people in small groups while the beta takes shape.</p>{joined ? <div className="joined"><Check /><span><b>You’re on the list.</b><small>We’ll email you when your download is ready.</small></span></div> : <form onSubmit={submit}><input aria-label="Email address" type="email" placeholder="Email address" required /><button className="pill pill-light">Join waitlist <ArrowRight /></button></form>}</div></section>; }
+function Footer() { return <footer><div className="footer-top"><Logo /><p>One quiet place to start work across your apps, files, browser, and terminal.</p><Link href="#top" className="pill">Back to top ↑</Link></div><div className="footer-bottom"><span>© 2026 Motus AI</span><div><Link href="#product">Product</Link><Link href="#how">How it works</Link><Link href="#details">Details</Link></div><span>Made for macOS</span></div></footer>; }
+export default function App() { return <main><RevealMotion /><Hero /><Product /><Features /><HowItWorks /><Details /><FAQ /><Waitlist /><Footer /></main>; }
