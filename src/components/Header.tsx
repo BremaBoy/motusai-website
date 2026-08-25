@@ -3,15 +3,19 @@ import { Menu, X } from 'lucide-react';
 
 const headerStyles = `
   .site-header {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 30;
     height: 82px;
     padding: 0 max(28px, calc((100vw - 1100px) / 2));
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    background: #fafafa;
-    border-bottom: 1px solid #e7e7e7;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, .16);
+    color: #fff;
   }
 
   .motus-logo {
@@ -34,12 +38,13 @@ const headerStyles = `
     display: flex;
     align-items: center;
     gap: 42px;
-    color: #666;
+    color: rgba(255, 255, 255, .72);
     font-size: 13px;
   }
 
   .site-nav a, .mobile-nav a { transition: color .2s ease; }
-  .site-nav a:hover, .mobile-nav a:hover { color: #111; }
+  .site-nav a:hover { color: #fff; }
+  .mobile-nav a:hover { color: #111; }
 
   .header-cta {
     justify-self: end;
@@ -49,8 +54,8 @@ const headerStyles = `
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: #171717;
-    color: #fff;
+    background: #fff;
+    color: #171717;
     font-size: 13px;
     font-weight: 600;
   }
@@ -64,6 +69,7 @@ const headerStyles = `
     padding: 0;
     border: 0;
     background: transparent;
+    color: #fff;
     place-items: center;
   }
 
@@ -96,7 +102,11 @@ const headerStyles = `
     }
 
     .mobile-nav.open { display: flex; }
-    .mobile-nav .header-cta { align-self: stretch; color: #fff; }
+    .mobile-nav .header-cta {
+      align-self: stretch;
+      background: #171717;
+      color: #fff;
+    }
   }
 `;
 
@@ -116,7 +126,7 @@ export function Header() {
       <style href="header-styles" precedence="default">{headerStyles}</style>
       <header className="site-header">
         <a className="motus-logo" href="#top" aria-label="Motus home">
-          <img src="/product/motus-app-icon.png" alt="" />
+          <img src="/product/motus-app-icon-64.png" width="64" height="64" alt="" />
           <span>motus</span>
         </a>
 

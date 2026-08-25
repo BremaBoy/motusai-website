@@ -11,7 +11,13 @@ const promptWallStyles = `
     grid-template-columns: repeat(4, minmax(290px, 1fr));
     grid-auto-rows: 72px;
     gap: 10px;
-    background: linear-gradient(#fafafa, #f7f7f7);
+    background: linear-gradient(
+      180deg,
+      var(--hero-handoff) 0%,
+      #e5e4e6 25%,
+      var(--page-surface) 62%,
+      var(--page-surface) 100%
+    );
   }
 
   .prompt-wall a {

@@ -14,13 +14,15 @@ const appStyles = `
     font-family: Inter, Arial, sans-serif;
     color: #111;
     background: #f7f7f7;
+    --page-surface: #f7f7f7;
+    --hero-handoff: #d4d3d5;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
   }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; min-width: 320px; background: #f7f7f7; }
+  body { margin: 0; min-width: 320px; background: var(--page-surface); }
   button, a { color: inherit; }
   a { text-decoration: none; }
   button { font: inherit; cursor: pointer; }

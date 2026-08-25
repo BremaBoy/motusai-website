@@ -13,7 +13,7 @@ const heroStyles = `
     isolation: isolate;
   }
 
-  .hero-copy { position: relative; z-index: 3; padding-top: 92px; }
+  .hero-copy { position: relative; z-index: 3; padding-top: 174px; }
   .hero-copy > span { font-size: 12px; }
 
   .hero h1 {
@@ -56,7 +56,7 @@ const heroStyles = `
 
   @media (max-width: 760px) {
     .hero { height: 875px; padding: 0; }
-    .hero-copy { padding: 70px 20px 0; }
+    .hero-copy { padding: 138px 20px 0; }
     .hero h1 { font-size: 38px; }
     .hero p br { display: none; }
   }

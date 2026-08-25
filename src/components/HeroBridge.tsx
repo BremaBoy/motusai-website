@@ -16,6 +16,24 @@ const heroBridgeStyles = `
     isolation: isolate;
   }
 
+  .bridge-backdrop::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 12%;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(212, 211, 213, 0) 0%,
+      rgba(212, 211, 213, .12) 22%,
+      rgba(212, 211, 213, .68) 68%,
+      var(--hero-handoff) 100%
+    );
+  }
+
   .horizon-art {
     position: absolute;
     z-index: -3;
@@ -27,13 +45,16 @@ const heroBridgeStyles = `
     animation: horizon-drift 18s ease-in-out infinite alternate;
   }
 
+  .horizon-picture, .motus-interface-picture { display: contents; }
+
   .horizon-wash {
     position: absolute;
     z-index: -2;
     inset: 0;
     background:
+      linear-gradient(180deg, rgba(5, 4, 10, .34) 0%, rgba(5, 4, 10, .34) 88%, rgba(5, 4, 10, .16) 94%, rgba(5, 4, 10, 0) 100%),
       radial-gradient(ellipse at 50% 42%, rgba(5, 4, 10, .22) 0%, rgba(5, 4, 10, .12) 36%, rgba(5, 4, 10, 0) 68%),
-      linear-gradient(180deg, rgba(7, 7, 14, .65) 0%, rgba(9, 7, 15, .44) 46%, rgba(9, 7, 14, .66) 72%, #f7f7f7 100%);
+      linear-gradient(180deg, rgba(7, 7, 14, .65) 0%, rgba(9, 7, 15, .44) 46%, rgba(9, 7, 14, .66) 88%, var(--hero-handoff) 100%);
   }
 
   .bridge-orb {
@@ -65,7 +86,7 @@ const heroBridgeStyles = `
     background: #121722;
     box-shadow: 0 42px 100px rgba(4, 2, 9, .5), 0 1px 0 rgba(255, 255, 255, .13) inset;
     animation: window-float 7s ease-in-out infinite;
-    margin-top: 150px;
+    margin-top: 220px;
   }
 
   .motus-interface-image {
@@ -140,17 +161,39 @@ export function HeroBridge() {
       <style href="hero-bridge-styles" precedence="default">{heroBridgeStyles}</style>
       <div className="hero-bridge">
         <div className="bridge-backdrop">
-          <img className="horizon-art" src="/reference/chromatic-horizon.png" alt="A dark evening landscape beneath a glowing sunset sky" />
+          <picture className="horizon-picture">
+            <source srcSet="/reference/chromatic-horizon.avif" type="image/avif" />
+            <source srcSet="/reference/chromatic-horizon.webp" type="image/webp" />
+            <img
+              className="horizon-art"
+              src="/reference/chromatic-horizon.png"
+              width="1672"
+              height="941"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              alt="A dark evening landscape beneath a glowing sunset sky"
+            />
+          </picture>
           <div className="horizon-wash" />
           <div className="bridge-orb orb-one" />
           <div className="bridge-orb orb-two" />
         </div>
         <div className="bridge-window">
-          <img
-            className="motus-interface-image"
-            src="/product/motus-interface.png"
-            alt="Motus AI interface with navigation and a single new conversation"
-          />
+          <picture className="motus-interface-picture">
+            <source srcSet="/product/motus-interface.avif" type="image/avif" />
+            <source srcSet="/product/motus-interface.webp" type="image/webp" />
+            <img
+              className="motus-interface-image"
+              src="/product/motus-interface.png"
+              width="1719"
+              height="915"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              alt="Motus AI interface with navigation and a single new conversation"
+            />
+          </picture>
         </div>
         <a className="bridge-scroll" href="#products"><span>Explore possibilities</span><b>↓</b></a>
       </div>
