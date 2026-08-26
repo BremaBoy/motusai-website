@@ -23,14 +23,14 @@ const headerStyles = `
     display: inline-flex;
     align-items: center;
     gap: 11px;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: -.03em;
   }
 
   .motus-logo img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 8px;
   }
 
@@ -48,15 +48,15 @@ const headerStyles = `
 
   .header-cta {
     justify-self: end;
-    min-height: 44px;
-    padding: 0 24px;
+    min-height: 38px;
+    padding: 0 20px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: #fff;
     color: #171717;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
   }
 

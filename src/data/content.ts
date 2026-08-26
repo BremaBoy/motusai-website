@@ -34,7 +34,7 @@ export const promptCards = [
 ];
 
 export const showcases: ShowcaseContent[] = [
-  { title: 'Writes, brainstorms, edits,\nand explores ideas with you', link: 'Learn more about writing with ChatGPT ›', image: '/reference/showcase-write.jpg' },
+  { title: 'Writes, brainstorms, edits,\nand explores ideas with you', image: '/reference/showcase-write.jpg' },
   { title: 'Summarize meetings. Find new\ninsights. Increase productivity.', image: '/reference/showcase-meetings.jpg' },
   { title: 'Generate and debug code. Automate\nrepetitive tasks. Learn new APIs.', image: '/reference/showcase-code.jpg' },
   { title: 'Learn something new. Dive into a\nhobby. Answer complex questions.', image: '/reference/showcase-learn.jpg' },

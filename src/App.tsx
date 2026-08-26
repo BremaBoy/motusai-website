@@ -1,10 +1,10 @@
-import { FeaturesSection } from './components/FeaturesSection';
+import { CapabilitiesSection } from './components/CapabilitiesSection';
 import { FinalCta } from './components/FinalCta';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { MajorUpdateSection } from './components/MajorUpdateSection';
 import { PricingSection } from './components/PricingSection';
-import { PromptWall } from './components/PromptWall';
 import { ShowcasesSection } from './components/ShowcasesSection';
 
 const appStyles = `
@@ -15,7 +15,7 @@ const appStyles = `
     color: #111;
     background: #f7f7f7;
     --page-surface: #f7f7f7;
-    --hero-handoff: #d4d3d5;
+    --hero-handoff: var(--page-surface);
     font-synthesis: none;
     text-rendering: optimizeLegibility;
   }
@@ -40,9 +40,9 @@ export default function App() {
       <style href="app-styles" precedence="default">{appStyles}</style>
       <Header />
       <Hero />
-      <PromptWall />
       <ShowcasesSection />
-      <FeaturesSection />
+      <CapabilitiesSection />
+      <MajorUpdateSection />
       <PricingSection />
       <FinalCta />
       <Footer />

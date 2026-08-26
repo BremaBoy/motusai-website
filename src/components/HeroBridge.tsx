@@ -27,9 +27,9 @@ const heroBridgeStyles = `
     pointer-events: none;
     background: linear-gradient(
       180deg,
-      rgba(212, 211, 213, 0) 0%,
-      rgba(212, 211, 213, .12) 22%,
-      rgba(212, 211, 213, .68) 68%,
+      rgba(247, 247, 247, 0) 0%,
+      rgba(247, 247, 247, .12) 22%,
+      rgba(247, 247, 247, .68) 68%,
       var(--hero-handoff) 100%
     );
   }
@@ -72,29 +72,58 @@ const heroBridgeStyles = `
   .orb-one { left: 8%; top: 19%; background: #5e63b8; }
   .orb-two { right: 7%; top: 31%; background: #bf4b30; animation-delay: -4s; }
 
-  .bridge-window {
+  .bridge-window-shell {
     position: absolute;
     z-index: 2;
     left: 50%;
     top: 405px;
-    width: min(860px, calc(100% - 64px));
-    aspect-ratio: 1643 / 825;
+    width: min(900px, calc(100% - 44px));
     transform: translateX(-50%);
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, .06) 0%, rgba(255, 255, 255, .12) 52%, rgba(255, 255, 255, .46) 72%, rgba(247, 247, 247, .84) 100%),
+      radial-gradient(circle at 12% 8%, rgba(132, 137, 224, .76), rgba(132, 137, 224, 0) 44%),
+      radial-gradient(circle at 90% 48%, rgba(213, 105, 72, .56), rgba(213, 105, 72, 0) 48%),
+      linear-gradient(135deg, rgba(255, 255, 255, .26), rgba(111, 104, 164, .3) 48%, rgba(255, 255, 255, .22));
+    box-shadow: 0 42px 100px rgba(4, 2, 9, .45);
+    -webkit-backdrop-filter: blur(18px) saturate(125%);
+    backdrop-filter: blur(18px) saturate(125%);
+    animation: window-float 7s ease-in-out infinite;
+    margin-top: 210px;
+    isolation: isolate;
+  }
+
+  .bridge-window-shell::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -48px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(104, 113, 211, .34) 0%, rgba(197, 83, 62, .24) 48%, rgba(247, 247, 247, .82) 100%);
+    filter: blur(42px);
+    opacity: .8;
+    pointer-events: none;
+  }
+
+  .bridge-window {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1666 / 944;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, .2);
     border-radius: 18px;
     background: #121722;
-    box-shadow: 0 42px 100px rgba(4, 2, 9, .5), 0 1px 0 rgba(255, 255, 255, .13) inset;
-    animation: window-float 7s ease-in-out infinite;
-    margin-top: 220px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .13) inset;
   }
 
   .motus-interface-image {
     position: absolute;
-    top: -4.36%;
-    left: -2.31%;
-    width: 104.63%;
-    height: 110.91%;
+    top: -1.5%;
+    left: -1.05%;
+    width: 102.1%;
+    height: 102.9%;
     max-width: none;
   }
 
@@ -142,16 +171,18 @@ const heroBridgeStyles = `
 
   @media (max-width: 760px) {
     .hero-bridge { height: 100%; }
-    .bridge-window {
+    .bridge-window-shell {
       top: auto;
-      bottom: -24px;
-      width: calc(100% - 34px);
+      bottom: -34px;
+      width: calc(100% - 14px);
+      padding: 10px;
+      border-radius: 8px;
       margin-top: 0;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .horizon-art, .bridge-window, .bridge-orb, .bridge-scroll b { animation: none; }
+    .horizon-art, .bridge-window-shell, .bridge-orb, .bridge-scroll b { animation: none; }
   }
 `;
 
@@ -179,21 +210,21 @@ export function HeroBridge() {
           <div className="bridge-orb orb-one" />
           <div className="bridge-orb orb-two" />
         </div>
-        <div className="bridge-window">
-          <picture className="motus-interface-picture">
-            <source srcSet="/product/motus-interface.avif" type="image/avif" />
-            <source srcSet="/product/motus-interface.webp" type="image/webp" />
-            <img
-              className="motus-interface-image"
-              src="/product/motus-interface.png"
-              width="1719"
-              height="915"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              alt="Motus AI interface with navigation and a single new conversation"
-            />
-          </picture>
+        <div className="bridge-window-shell">
+          <div className="bridge-window">
+            <picture className="motus-interface-picture">
+              <img
+                className="motus-interface-image"
+                src="/product/motus-interface-tall.png"
+                width="1666"
+                height="944"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                alt="Motus AI interface with navigation and a single new conversation"
+              />
+            </picture>
+          </div>
         </div>
         <a className="bridge-scroll" href="#products"><span>Explore possibilities</span><b>↓</b></a>
       </div>
