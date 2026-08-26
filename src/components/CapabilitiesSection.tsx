@@ -52,14 +52,13 @@ const capabilities: Capability[] = [
 
 const capabilitiesStyles = `
   .capabilities {
-    padding: 150px 20px 120px;
-    background: var(--page-surface);
-    border-top: 1px solid rgba(17, 17, 17, .06);
+    padding: 128px 20px 0;
+    background: #fbfbfa;
   }
 
   .capabilities-intro {
     width: min(900px, 100%);
-    margin: 0 auto 116px;
+    margin: 0 auto 64px;
     text-align: center;
   }
 
@@ -101,11 +100,15 @@ const capabilitiesStyles = `
     line-height: 1.6;
   }
 
-  .capability-list { width: min(1120px, 100%); margin: 0 auto; }
+  .capability-list {
+    width: min(1400px, calc(100% - 80px));
+    margin: 0 auto;
+    background: #fff;
+  }
 
   .capability-row {
     min-height: 610px;
-    padding: 44px 0 120px;
+    padding: 20px 54px 84px;
     display: grid;
     grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
     gap: 88px;
@@ -152,11 +155,11 @@ const capabilitiesStyles = `
     display: grid;
     place-items: center;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 14px;
   }
 
   .capability-media[data-tone='blue'] {
-    background: radial-gradient(circle at 22% 16%, #a7c9ff 0%, transparent 33%), linear-gradient(140deg, #4e73f1, #7e9cff 48%, #21347d);
+    background: radial-gradient(circle at 20% 14%, #e5f4ec 0%, transparent 34%), linear-gradient(140deg, #8fc8bd, #c7dfd2 50%, #557b78);
   }
 
   .capability-media[data-tone='pearl'] {
@@ -164,7 +167,7 @@ const capabilitiesStyles = `
   }
 
   .capability-media[data-tone='violet'] {
-    background: radial-gradient(circle at 78% 22%, #cfb4ff 0%, transparent 34%), linear-gradient(135deg, #536ee8, #8a6fda 54%, #31204e);
+    background: radial-gradient(circle at 80% 18%, #ffe6cb 0%, transparent 34%), linear-gradient(135deg, #c88f78, #e8bea0 54%, #7e5d58);
   }
 
   .capability-media[data-tone='sunset'] {
@@ -185,12 +188,13 @@ const capabilitiesStyles = `
   .capability-media video { aspect-ratio: 16 / 10; }
 
   @media (max-width: 820px) {
-    .capabilities { padding: 110px 16px 80px; }
-    .capabilities-intro { margin-bottom: 70px; }
+    .capabilities { padding: 96px 16px 0; }
+    .capabilities-intro { margin-bottom: 48px; }
+    .capability-list { width: 100%; }
     .capability-row,
     .capability-row.reverse {
       min-height: 0;
-      padding: 20px 0 84px;
+      padding: 40px 20px 64px;
       grid-template-columns: 1fr;
       gap: 42px;
     }

@@ -3,10 +3,13 @@ import { Check } from 'lucide-react';
 const planStyles = `
   .plan {
     min-height: 525px;
-    padding: 40px 30px 30px;
+    padding: 42px 34px 32px;
+    border: 1px solid #e3e3e0;
+    border-radius: 14px;
     background: #fff;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 1px 0 rgba(17, 17, 17, .02);
   }
 
   .plan h3 { margin: 0 0 30px; font-size: 20px; font-weight: 400; }
@@ -19,7 +22,7 @@ const planStyles = `
   .plan-actions { margin-top: 52px; display: flex; align-items: center; gap: 20px; font-size: 12px; }
 
   .plan .black-button {
-    min-height: 36px;
+    min-height: 40px;
     padding: 0 19px;
     border-radius: 999px;
     background: #111;
@@ -28,7 +31,10 @@ const planStyles = `
     align-items: center;
     justify-content: center;
     font-size: 12px;
+    transition: transform .2s ease, background .2s ease;
   }
+
+  .plan .black-button:hover { transform: translateY(-1px); background: #2a2a2a; }
 
   @media (max-width: 760px) {
     .plan { min-height: 500px; }
@@ -51,7 +57,7 @@ export function Plan({ name, items, price, plusPlan = false }: PlanProps) {
         <ul>{items.map((item) => <li key={item}><Check />{item}</li>)}</ul>
         <p className="price"><b>{price}</b><span>/ month</span></p>
         <div className="plan-actions">
-          <a className="black-button" href="#top">Start now ↗</a>
+          <a className="black-button" href="#top">Get started ↗</a>
           {plusPlan && <a href="#limits">Limits apply ›</a>}
         </div>
       </article>

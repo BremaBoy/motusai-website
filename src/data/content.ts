@@ -51,26 +51,26 @@ export const features: FeatureContent[] = [
 ];
 
 export const freePlanItems = [
-  'Assistance with writing, problem solving and more',
-  'Access to GPT-4o mini',
-  'Limited access to GPT-4o',
-  'Limited access to advanced data analysis, file uploads, vision, web browsing, and image generation',
-  'Use custom GPTs',
+  'Core text and voice conversations',
+  'Conversation history across your workspace',
+  'Web research and file support',
+  'Prompt refinement for clearer requests',
+  'Essential tools for everyday work',
 ];
 
 export const plusPlanItems = [
-  'Early access to new features',
-  'Access to GPT-4, GPT-4o, GPT-4o mini',
-  'Up to 5x more messages for GPT-4o',
-  'Access to advanced data analysis, file uploads, vision, and web browsing',
-  'DALL·E image generation',
-  'Create and use custom GPTs',
+  'Everything in Starter',
+  'Longer project memory and context',
+  'Higher limits for voice, files, and research',
+  'Advanced tools and real actions',
+  'Priority access to new capabilities',
+  'Faster responses during busy periods',
 ];
 
 export const footerGroups: FooterGroupContent[] = [
-  { heading: 'Our research', links: ['Overview', 'Index'], secondary: 'Latest advancements', extra: ['OpenAI o1', 'GPT-4', 'GPT-4o mini', 'DALL·E 3', 'Sora'] },
-  { heading: 'ChatGPT', links: ['For Everyone', 'For Teams', 'For Enterprises', 'ChatGPT login ↗', 'Download'], secondary: 'API', extra: ['Platform overview', 'Pricing', 'Documentation ↗', 'API login ↗', '', 'Explore more', 'OpenAI for business', 'Stories'] },
-  { heading: 'Safety overview', links: ['Safety overview'], secondary: 'Teams', extra: [] },
-  { heading: 'Company', links: ['About us', 'News', 'Our Charter', 'Security', 'Residency', 'Careers'], extra: [] },
-  { heading: 'Terms & policies', links: ['Terms of use', 'Privacy policy', 'Brand guidelines', 'Other policies'], extra: [] },
+  { heading: 'Product', links: ['Native voice', 'Connected workspace', 'Real actions', 'Prompt refinement'], extra: [] },
+  { heading: 'Use cases', links: ['Writing', 'Research', 'Planning', 'Everyday work'], extra: [] },
+  { heading: 'Resources', links: ['Download', 'Updates', 'Help center', 'System status'], extra: [] },
+  { heading: 'Company', links: ['About', 'Careers', 'Contact'], extra: [] },
+  { heading: 'Legal', links: ['Terms', 'Privacy', 'Security'], extra: [] },
 ];

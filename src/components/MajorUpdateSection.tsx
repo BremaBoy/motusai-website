@@ -1,22 +1,24 @@
 const majorUpdateStyles = `
   .major-update {
-    padding: 140px 20px;
+    padding: 0 20px 128px;
     overflow: hidden;
-    background: #0d1018;
-    color: #fff;
+    background: #fbfbfa;
+    color: #111;
   }
 
   .major-update-inner {
-    width: min(1120px, 100%);
+    width: 100%;
     margin: 0 auto;
+    padding: 110px 54px;
     display: grid;
-    grid-template-columns: .8fr 1.2fr;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
     gap: 88px;
     align-items: center;
+    background: #fff;
   }
 
   .major-update-copy > span {
-    color: #aebcff;
+    color: #367fbe;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: .12em;
@@ -33,7 +35,7 @@ const majorUpdateStyles = `
 
   .major-update-copy > p {
     margin: 0;
-    color: rgba(255, 255, 255, .66);
+    color: #68686c;
     font-size: 15px;
     line-height: 1.7;
   }
@@ -41,19 +43,23 @@ const majorUpdateStyles = `
   .update-points {
     margin-top: 38px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid #e7e7e4;
   }
 
   .update-points div {
-    min-height: 110px;
-    padding: 18px;
-    border: 1px solid rgba(255, 255, 255, .13);
-    background: rgba(255, 255, 255, .04);
+    min-height: 72px;
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 16px;
+    align-items: start;
+    border-bottom: 1px solid #e7e7e4;
   }
 
-  .update-points b { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 500; }
-  .update-points span { color: rgba(255, 255, 255, .5); font-size: 11px; line-height: 1.45; }
+  .update-points b { display: block; font-size: 12px; font-weight: 500; }
+  .update-points span { color: #77777b; font-size: 11px; line-height: 1.45; }
 
   .major-update-visual {
     position: relative;
@@ -65,31 +71,32 @@ const majorUpdateStyles = `
     position: absolute;
     inset: 0 -18vw 0 0;
     background:
-      radial-gradient(circle at 20% 18%, rgba(130, 156, 255, .88), transparent 30%),
-      radial-gradient(circle at 88% 72%, rgba(238, 146, 112, .7), transparent 34%),
-      linear-gradient(135deg, #273a8c, #6e5d9c 50%, #35203a);
+      radial-gradient(circle at 18% 16%, rgba(255, 255, 255, .96), transparent 31%),
+      radial-gradient(circle at 84% 78%, rgba(91, 143, 243, .48), transparent 34%),
+      linear-gradient(145deg, #edf7fb, #d9ecf5 48%, #94b8ee);
+    border-radius: 14px;
   }
 
   .major-update-visual img {
     position: relative;
     z-index: 1;
-    width: min(840px, 74vw);
-    max-width: none;
-    border: 1px solid rgba(255, 255, 255, .5);
-    border-radius: 6px;
-    box-shadow: 0 38px 100px rgba(0, 0, 0, .42);
+    width: 100%;
+    max-width: 840px;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 8px;
+    box-shadow: 0 32px 80px rgba(49, 72, 112, .22);
   }
 
   @media (max-width: 900px) {
-    .major-update { padding: 100px 16px; }
-    .major-update-inner { grid-template-columns: 1fr; gap: 60px; }
+    .major-update { padding: 0 16px 96px; }
+    .major-update-inner { padding: 84px 28px; grid-template-columns: 1fr; gap: 60px; }
     .major-update-visual { padding: 30px; }
     .major-update-visual::before { inset: 0; }
     .major-update-visual img { width: 100%; max-width: 100%; }
   }
 
   @media (max-width: 520px) {
-    .update-points { grid-template-columns: 1fr; }
+    .update-points div { grid-template-columns: 1fr; gap: 7px; }
   }
 `;
 

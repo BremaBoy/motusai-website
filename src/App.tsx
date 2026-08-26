@@ -1,4 +1,5 @@
 import { CapabilitiesSection } from './components/CapabilitiesSection';
+import { FeaturedVideosSection } from './components/FeaturedVideosSection';
 import { FinalCta } from './components/FinalCta';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -6,6 +7,7 @@ import { Hero } from './components/Hero';
 import { MajorUpdateSection } from './components/MajorUpdateSection';
 import { PricingSection } from './components/PricingSection';
 import { ShowcasesSection } from './components/ShowcasesSection';
+import { WorkAcrossAppsSection } from './components/WorkAcrossAppsSection';
 
 const appStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -41,8 +43,10 @@ export default function App() {
       <Header />
       <Hero />
       <ShowcasesSection />
+      <WorkAcrossAppsSection />
       <CapabilitiesSection />
       <MajorUpdateSection />
+      <FeaturedVideosSection />
       <PricingSection />
       <FinalCta />
       <Footer />
