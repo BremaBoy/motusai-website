@@ -316,7 +316,7 @@ function TrashAppMotion() {
 
 const featuredVideosStyles = `
   .featured-videos {
-    padding: 126px 20px 132px;
+    padding: 126px clamp(72px, 7vw, 140px) 132px;
     background: #fbfbfa;
   }
 
@@ -763,6 +763,7 @@ const featuredVideosStyles = `
   }
 
   @media (max-width: 720px) {
+    .featured-videos { padding-inline: 28px; }
     .featured-video-grid { grid-template-columns: 1fr; }
     .featured-video-stage { min-height: 520px; }
     .featured-video-stage video, .open-mail-motion, .terminal-motion, .trash-motion { height: 390px; }
