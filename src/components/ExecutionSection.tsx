@@ -15,7 +15,7 @@ const styles = `
   .execution {
     padding: 0 20px 132px;
     background: var(--page-surface);
-    color: #f8f7fb;
+    color: #151515;
   }
 
   .execution-inner {
@@ -24,41 +24,39 @@ const styles = `
     padding: 96px clamp(28px, 5vw, 80px);
     overflow: hidden;
     border-radius: 28px;
-    background:
-      radial-gradient(circle at 10% 12%, rgba(110, 88, 245, .26), transparent 32%),
-      radial-gradient(circle at 92% 84%, rgba(220, 99, 75, .2), transparent 35%),
-      #15121d;
+    background: #e3e3e0;
   }
 
   .execution-header { max-width: 920px; }
-  .execution .section-label { color: #c0b9ff; }
+  .execution .section-label { color: #646460; }
+  .execution .section-label::before { background: #8b8b86; }
   .execution h2 { margin: 26px 0 22px; font-size: clamp(47px, 5.7vw, 76px); font-weight: 500; line-height: 1; letter-spacing: -.06em; }
-  .execution-header p { max-width: 660px; margin: 0; color: rgba(255,255,255,.58); font-size: 16px; line-height: 1.65; }
+  .execution-header p { max-width: 660px; margin: 0; color: #646460; font-size: 16px; line-height: 1.65; }
 
   .execution-grid { margin-top: 78px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .execution-panel { min-height: 610px; padding: 34px; border: 1px solid rgba(255,255,255,.1); border-radius: 18px; background: rgba(255,255,255,.045); }
+  .execution-panel { min-height: 610px; padding: 34px; border: 1px solid rgba(21,21,21,.12); border-radius: 18px; background: #ececea; }
   .execution-panel-head { margin-bottom: 42px; display: flex; justify-content: space-between; align-items: center; }
-  .execution-panel-head span { color: rgba(255,255,255,.44); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
-  .execution-panel-head b { padding: 7px 10px; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; color: #c8c3d4; font-size: 10px; font-weight: 500; }
+  .execution-panel-head span { color: #74746f; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+  .execution-panel-head b { padding: 7px 10px; border: 1px solid rgba(21,21,21,.14); border-radius: 999px; color: #555550; font-size: 10px; font-weight: 500; }
   .execution-panel h3 { max-width: 420px; margin: 0 0 40px; font-size: clamp(28px, 3vw, 39px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
 
   .execution-layers { display: grid; }
-  .execution-layer { min-height: 61px; display: grid; grid-template-columns: 35px 1fr auto; gap: 14px; align-items: center; border-top: 1px solid rgba(255,255,255,.1); }
-  .execution-layer:last-child { border-bottom: 1px solid rgba(255,255,255,.1); }
-  .execution-layer span:first-child { color: rgba(255,255,255,.32); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+  .execution-layer { min-height: 61px; display: grid; grid-template-columns: 35px 1fr auto; gap: 14px; align-items: center; border-top: 1px solid rgba(21,21,21,.1); }
+  .execution-layer:last-child { border-bottom: 1px solid rgba(21,21,21,.1); }
+  .execution-layer span:first-child { color: #8a8a85; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
   .execution-layer strong { font-size: 13px; font-weight: 500; }
-  .execution-layer small { color: rgba(255,255,255,.42); font-size: 10px; }
+  .execution-layer small { color: #777772; font-size: 10px; }
 
   .verify-loop { position: relative; height: 360px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: center; }
-  .verify-step { min-height: 98px; padding: 18px; border: 1px solid rgba(255,255,255,.11); border-radius: 12px; background: rgba(255,255,255,.05); display: flex; flex-direction: column; justify-content: space-between; }
-  .verify-step span { color: rgba(255,255,255,.34); font-size: 10px; }
+  .verify-step { min-height: 98px; padding: 18px; border: 1px solid rgba(21,21,21,.11); border-radius: 12px; background: #e4e4e1; display: flex; flex-direction: column; justify-content: space-between; }
+  .verify-step span { color: #888883; font-size: 10px; }
   .verify-step strong { font-size: 15px; font-weight: 500; }
-  .verify-result { grid-column: 1 / -1; min-height: 76px; padding: 18px 20px; display: flex; align-items: center; gap: 13px; border: 1px solid rgba(130, 232, 180, .22); border-radius: 12px; background: rgba(74, 185, 125, .1); color: #bef1d2; }
+  .verify-result { grid-column: 1 / -1; min-height: 76px; padding: 18px 20px; display: flex; align-items: center; gap: 13px; border: 1px solid rgba(48, 151, 94, .25); border-radius: 12px; background: rgba(74, 185, 125, .13); color: #246f46; }
   .verify-result svg { width: 18px; }
   .verify-result div { display: grid; gap: 3px; }
   .verify-result strong { font-size: 13px; font-weight: 600; }
-  .verify-result small { color: rgba(208,255,227,.58); font-size: 10px; }
-  .verify-retry { margin-top: 25px; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.45); font-size: 11px; }
+  .verify-result small { color: #4f8065; font-size: 10px; }
+  .verify-retry { margin-top: 25px; display: flex; align-items: center; gap: 10px; color: #6c6c67; font-size: 11px; }
   .verify-retry svg, .execution-layer svg { width: 14px; height: 14px; }
 
   @media (max-width: 840px) {
