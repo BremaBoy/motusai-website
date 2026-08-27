@@ -47,6 +47,7 @@ const promises = [
 ];
 
 const promisePages = [promises.slice(0, 3), promises.slice(3, 6)];
+const loopingPromisePages = [promisePages[1], promisePages[0], promisePages[1], promisePages[0]];
 
 const styles = `
   .product-promises {
@@ -88,6 +89,8 @@ const styles = `
 
   .product-promises-header p { margin: 0 0 3px; color: var(--muted); font-size: 16px; line-height: 1.65; }
 
+  .promise-carousel-shell { position: relative; }
+
   .promise-carousel {
     overflow: hidden;
     border: 1px solid var(--line);
@@ -95,15 +98,15 @@ const styles = `
   }
 
   .promise-track {
-    width: 200%;
+    width: 400%;
     display: flex;
-    transition: transform .9s cubic-bezier(.22, .8, .22, 1);
+    transition: transform 1.15s cubic-bezier(.25, .7, .2, 1);
     will-change: transform;
   }
 
   .promise-page {
-    width: 50%;
-    flex: 0 0 50%;
+    width: 25%;
+    flex: 0 0 25%;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -121,38 +124,34 @@ const styles = `
   .promise-card:last-child { border-right: 0; }
 
   .promise-card:hover { position: relative; z-index: 1; background: #fff; transform: translateY(-4px); box-shadow: 0 22px 70px rgba(26, 20, 48, .08); }
-  .promise-top { display: flex; align-items: center; justify-content: space-between; color: #7a7681; font-size: 11px; }
+  .promise-top { display: flex; align-items: center; justify-content: flex-end; }
   .promise-icon { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: #5549d8; }
   .promise-icon svg { width: 19px; height: 19px; stroke-width: 1.7; }
   .promise-card h3 { margin: auto 0 15px; font-size: 24px; font-weight: 500; line-height: 1.1; letter-spacing: -.04em; }
   .promise-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
   .promise-example { margin-top: 25px; color: #46414d; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 1.5; }
 
-  .promise-controls {
-    margin-top: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .promise-buttons { display: flex; gap: 9px; }
-  .promise-buttons button {
-    width: 42px;
-    height: 42px;
+  .promise-arrow {
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    width: 46px;
+    height: 46px;
     padding: 0;
     display: grid;
     place-items: center;
     border: 1px solid var(--line);
     border-radius: 50%;
-    background: rgba(255,255,255,.72);
-    transition: background .2s ease, transform .2s ease;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 10px 30px rgba(29,23,49,.12);
+    transform: translateY(-50%);
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
   }
-  .promise-buttons button:hover { background: #fff; transform: translateY(-2px); }
-  .promise-buttons svg { width: 16px; height: 16px; }
-
-  .promise-progress { display: flex; align-items: center; gap: 10px; color: #77737e; font-size: 10px; letter-spacing: .08em; }
-  .promise-progress-track { width: 76px; height: 2px; overflow: hidden; border-radius: 999px; background: rgba(23,21,27,.14); }
-  .promise-progress-track i { display: block; width: 50%; height: 100%; border-radius: inherit; background: #6258d6; transition: transform .9s cubic-bezier(.22, .8, .22, 1); }
+  .promise-arrow:hover { background: #fff; box-shadow: 0 14px 38px rgba(29,23,49,.17); }
+  .promise-arrow:hover svg { transform: scale(1.08); }
+  .promise-arrow svg { width: 17px; height: 17px; transition: transform .2s ease; }
+  .promise-arrow-previous { left: -23px; }
+  .promise-arrow-next { right: -23px; }
 
   @media (max-width: 900px) {
     .product-promises-header { grid-template-columns: 1fr; gap: 26px; }
@@ -165,25 +164,55 @@ const styles = `
     .promise-card { min-height: 300px; }
     .promise-card { border-right: 0; border-bottom: 1px solid var(--line); }
     .promise-card:last-child { border-bottom: 0; }
+    .promise-arrow { width: 40px; height: 40px; }
+    .promise-arrow-previous { left: -4px; }
+    .promise-arrow-next { right: -4px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .promise-track, .promise-progress-track i { transition: none; }
+    .promise-track { transition: none; }
   }
 `;
 
 export function ProductPromisesSection() {
-  const [activePage, setActivePage] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(1);
+  const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => setActivePage((page) => (page + 1) % promisePages.length), 6500);
+    const timer = window.setInterval(() => {
+      setAnimated(true);
+      setSlideIndex((index) => index + 1);
+    }, 5600);
     return () => window.clearInterval(timer);
   }, [paused]);
 
-  const previousPage = () => setActivePage((page) => (page - 1 + promisePages.length) % promisePages.length);
-  const nextPage = () => setActivePage((page) => (page + 1) % promisePages.length);
+  useEffect(() => {
+    if (animated) return;
+    const frame = window.requestAnimationFrame(() => setAnimated(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, [animated]);
+
+  const moveCarousel = (direction: -1 | 1) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setAnimated(false);
+      setSlideIndex((index) => (index === 1 || index === 3 ? 2 : 1));
+      return;
+    }
+    setAnimated(true);
+    setSlideIndex((index) => index + direction);
+  };
+
+  const handleTransitionEnd = () => {
+    if (slideIndex === 3) {
+      setAnimated(false);
+      setSlideIndex(1);
+    } else if (slideIndex === 0) {
+      setAnimated(false);
+      setSlideIndex(2);
+    }
+  };
 
   return (
     <>
@@ -199,10 +228,7 @@ export function ProductPromisesSection() {
           </header>
 
           <div
-            className="promise-carousel"
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="How Motus turns intent into action"
+            className="promise-carousel-shell"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocus={() => setPaused(true)}
@@ -210,32 +236,31 @@ export function ProductPromisesSection() {
               if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
             }}
           >
-            <div className="promise-track" style={{ transform: `translate3d(-${activePage * 50}%, 0, 0)` }}>
-              {promisePages.map((page, pageIndex) => (
-                <div className="promise-page" aria-hidden={activePage !== pageIndex} key={pageIndex}>
-                  {page.map(({ number, icon: Icon, title, text, example }) => (
-                    <article className="promise-card" key={number}>
-                      <div className="promise-top"><span>{number}</span><span className="promise-icon"><Icon /></span></div>
-                      <h3>{title}</h3>
-                      <p>{text}</p>
-                      <span className="promise-example">{example}</span>
-                    </article>
-                  ))}
-                </div>
-              ))}
+            <div className="promise-carousel" role="region" aria-roledescription="carousel" aria-label="How Motus turns intent into action">
+              <div
+                className="promise-track"
+                onTransitionEnd={handleTransitionEnd}
+                style={{
+                  transform: `translate3d(-${slideIndex * 25}%, 0, 0)`,
+                  transition: animated ? undefined : 'none',
+                }}
+              >
+                {loopingPromisePages.map((page, pageIndex) => (
+                  <div className="promise-page" aria-hidden={pageIndex !== slideIndex} key={pageIndex}>
+                    {page.map(({ icon: Icon, title, text, example }) => (
+                      <article className="promise-card" key={`${pageIndex}-${title}`}>
+                        <div className="promise-top"><span className="promise-icon"><Icon /></span></div>
+                        <h3>{title}</h3>
+                        <p>{text}</p>
+                        <span className="promise-example">{example}</span>
+                      </article>
+                    ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className="promise-controls">
-            <div className="promise-buttons">
-              <button type="button" onClick={previousPage} aria-label="Show previous Motus capabilities"><ArrowLeft /></button>
-              <button type="button" onClick={nextPage} aria-label="Show next Motus capabilities"><ArrowRight /></button>
-            </div>
-            <div className="promise-progress" aria-live="polite">
-              <span>0{activePage + 1}</span>
-              <span className="promise-progress-track"><i style={{ transform: `translateX(${activePage * 100}%)` }} /></span>
-              <span>0{promisePages.length}</span>
-            </div>
+            <button className="promise-arrow promise-arrow-previous" type="button" onClick={() => moveCarousel(-1)} aria-label="Show previous Motus capabilities"><ArrowLeft /></button>
+            <button className="promise-arrow promise-arrow-next" type="button" onClick={() => moveCarousel(1)} aria-label="Show next Motus capabilities"><ArrowRight /></button>
           </div>
         </div>
       </section>
