@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { CheckCircle2, Code2, Eye, Files, MessagesSquare, MousePointer2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Code2, Eye, Files, MessagesSquare, MousePointer2 } from 'lucide-react';
 
 const promises = [
   {
@@ -47,6 +47,7 @@ const promises = [
 ];
 
 const loopingPromises = [...promises, ...promises.slice(0, 4)];
+const promiseGap = 14;
 
 const styles = `
   .product-promises {
@@ -90,24 +91,27 @@ const styles = `
 
   .promise-carousel {
     overflow: hidden;
-    border: 1px solid var(--line);
-    background: rgba(255,255,255,.26);
+    background: transparent;
   }
+
+  .promise-carousel-shell { position: relative; }
 
   .promise-track {
     width: 100%;
     display: flex;
+    gap: 14px;
     transition: transform 1s cubic-bezier(.25, .7, .2, 1);
     will-change: transform;
   }
 
   .promise-card {
     min-height: 410px;
-    flex: 0 0 calc(100% / 3.25);
+    flex: 0 0 auto;
     padding: 30px;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
     background: rgba(255,255,255,.4);
     transition: background .25s ease, transform .25s ease;
   }
@@ -120,15 +124,38 @@ const styles = `
   .promise-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
   .promise-example { margin-top: 25px; color: #46414d; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; line-height: 1.5; }
 
+  .promise-arrow {
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 9px 26px rgba(29,23,49,.11);
+    transform: translateY(-50%);
+    transition: background .2s ease, box-shadow .2s ease;
+  }
+  .promise-arrow:hover { background: #fff; box-shadow: 0 12px 34px rgba(29,23,49,.16); }
+  .promise-arrow svg { width: 16px; height: 16px; }
+  .promise-arrow-previous { left: -22px; }
+  .promise-arrow-next { right: -22px; }
+
   @media (max-width: 900px) {
     .product-promises-header { grid-template-columns: 1fr; gap: 26px; }
-    .promise-card { flex-basis: calc(100% / 2.15); }
   }
 
   @media (max-width: 620px) {
     .product-promises { padding: 110px 16px 96px; }
     .product-promises h2 { font-size: 44px; }
-    .promise-card { min-height: 330px; flex-basis: calc(100% / 1.15); }
+    .promise-card { min-height: 330px; }
+    .promise-arrow { width: 38px; height: 38px; }
+    .promise-arrow-previous { left: -4px; }
+    .promise-arrow-next { right: -4px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -139,7 +166,7 @@ const styles = `
 export function ProductPromisesSection() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [cardStep, setCardStep] = useState(0);
+  const [cardMetrics, setCardMetrics] = useState({ width: 0, step: 0 });
   const [animated, setAnimated] = useState(true);
   const [paused, setPaused] = useState(false);
 
@@ -149,7 +176,9 @@ export function ProductPromisesSection() {
 
     const updateCardStep = () => {
       const visibleCards = carousel.clientWidth <= 620 ? 1.15 : carousel.clientWidth <= 900 ? 2.15 : 3.25;
-      setCardStep(carousel.clientWidth / visibleCards);
+      const visibleGaps = Math.ceil(visibleCards) - 1;
+      const cardWidth = (carousel.clientWidth - visibleGaps * promiseGap) / visibleCards;
+      setCardMetrics({ width: cardWidth, step: cardWidth + promiseGap });
     };
 
     updateCardStep();
@@ -180,6 +209,28 @@ export function ProductPromisesSection() {
     }
   };
 
+  const showPreviousCard = () => {
+    if (slideIndex > 0) {
+      setAnimated(true);
+      setSlideIndex((index) => index - 1);
+      return;
+    }
+
+    setAnimated(false);
+    setSlideIndex(promises.length);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        setAnimated(true);
+        setSlideIndex(promises.length - 1);
+      });
+    });
+  };
+
+  const showNextCard = () => {
+    setAnimated(true);
+    setSlideIndex((index) => index + 1);
+  };
+
   return (
     <>
       <style href="product-promises-styles" precedence="default">{styles}</style>
@@ -194,11 +245,7 @@ export function ProductPromisesSection() {
           </header>
 
           <div
-            className="promise-carousel"
-            ref={carouselRef}
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="How Motus turns intent into action"
+            className="promise-carousel-shell"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocus={() => setPaused(true)}
@@ -206,23 +253,27 @@ export function ProductPromisesSection() {
               if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
             }}
           >
-            <div
-              className="promise-track"
-              onTransitionEnd={handleTransitionEnd}
-              style={{
-                transform: `translate3d(-${slideIndex * cardStep}px, 0, 0)`,
-                transition: animated ? undefined : 'none',
-              }}
-            >
-              {loopingPromises.map(({ icon: Icon, title, text, example }, index) => (
-                <article className="promise-card" aria-hidden={index >= promises.length} key={`${index}-${title}`}>
-                  <div className="promise-top"><span className="promise-icon"><Icon /></span></div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                  <span className="promise-example">{example}</span>
-                </article>
-              ))}
+            <div className="promise-carousel" ref={carouselRef} role="region" aria-roledescription="carousel" aria-label="How Motus turns intent into action">
+              <div
+                className="promise-track"
+                onTransitionEnd={handleTransitionEnd}
+                style={{
+                  transform: `translate3d(-${slideIndex * cardMetrics.step}px, 0, 0)`,
+                  transition: animated ? undefined : 'none',
+                }}
+              >
+                {loopingPromises.map(({ icon: Icon, title, text, example }, index) => (
+                  <article className="promise-card" aria-hidden={index >= promises.length} key={`${index}-${title}`} style={{ width: cardMetrics.width || undefined }}>
+                    <div className="promise-top"><span className="promise-icon"><Icon /></span></div>
+                    <h3>{title}</h3>
+                    <p>{text}</p>
+                    <span className="promise-example">{example}</span>
+                  </article>
+                ))}
+              </div>
             </div>
+            <button className="promise-arrow promise-arrow-previous" type="button" onClick={showPreviousCard} aria-label="Show previous Motus capability"><ArrowLeft /></button>
+            <button className="promise-arrow promise-arrow-next" type="button" onClick={showNextCard} aria-label="Show next Motus capability"><ArrowRight /></button>
           </div>
         </div>
       </section>
