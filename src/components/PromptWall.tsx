@@ -4,9 +4,9 @@ const promptWallStyles = `
   .prompt-wall {
     position: relative;
     z-index: 0;
-    height: 330px;
-    margin: 0 -150px;
-    padding-top: 66px;
+    height: 440px;
+    margin: 0 -20px;
+    padding-top: 104px;
     overflow: hidden;
     background: var(--page-surface);
   }
@@ -18,7 +18,9 @@ const promptWallStyles = `
     inset: 0;
     pointer-events: none;
     background:
-      linear-gradient(90deg, var(--page-surface) 0, rgba(244,242,237,.86) 4%, transparent 12%, transparent 88%, rgba(244,242,237,.86) 96%, var(--page-surface) 100%),
+      radial-gradient(ellipse 26% 72% at 0% 48%, rgba(255,255,255,1) 0%, rgba(255,255,255,.88) 28%, rgba(255,255,255,.38) 58%, transparent 100%),
+      radial-gradient(ellipse 26% 72% at 100% 48%, rgba(255,255,255,1) 0%, rgba(255,255,255,.88) 28%, rgba(255,255,255,.38) 58%, transparent 100%),
+      linear-gradient(90deg, var(--page-surface) 0, rgba(244,242,237,.7) 8%, transparent 19%, transparent 81%, rgba(244,242,237,.7) 92%, var(--page-surface) 100%),
       linear-gradient(180deg, transparent 58%, rgba(244,242,237,.16) 72%, var(--page-surface) 100%);
   }
 
@@ -26,7 +28,7 @@ const promptWallStyles = `
     position: relative;
     z-index: 1;
     width: 100%;
-    margin-bottom: 9px;
+    margin-bottom: 14px;
     overflow: hidden;
   }
 
@@ -61,35 +63,35 @@ const promptWallStyles = `
     display: flex;
     flex: none;
     align-items: center;
-    gap: 8px;
-    padding-right: 8px;
+    gap: 12px;
+    padding-right: 12px;
   }
 
   .prompt-item {
     display: flex;
     flex: none;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 
   .prompt-category-badge {
-    width: 36px;
-    height: 36px;
+    width: 48px;
+    height: 48px;
     flex: 0 0 auto;
     display: grid;
     place-items: center;
     border: 1px solid #dededb;
     border-radius: 50%;
     background: rgba(255,255,255,.92);
-    box-shadow: 0 2px 8px rgba(30,34,40,.05);
-    font-size: 15px;
+    box-shadow: 0 5px 18px rgba(30,34,40,.07);
+    font-size: 19px;
   }
 
   .prompt-item a {
     width: max-content;
-    max-width: min(520px, 72vw);
-    height: 38px;
-    padding: 0 18px;
+    max-width: min(680px, 76vw);
+    height: 50px;
+    padding: 0 25px;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -97,12 +99,12 @@ const promptWallStyles = `
     border-radius: 999px;
     color: #28282b;
     background: rgba(255,255,255,.94);
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
-    box-shadow: 0 2px 10px rgba(27,31,38,.035);
+    box-shadow: 0 5px 18px rgba(27,31,38,.055);
     transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
   }
 
@@ -136,28 +138,30 @@ const promptWallStyles = `
 
   @media (max-width: 760px) {
     .prompt-wall {
-      height: 312px;
+      height: 370px;
       margin: 0 -14px;
-      padding-top: 58px;
+      padding-top: 82px;
     }
 
     .prompt-wall::after {
       background:
-        linear-gradient(90deg, var(--page-surface) 0, transparent 9%, transparent 91%, var(--page-surface) 100%),
+        radial-gradient(ellipse 34% 70% at 0% 48%, rgba(255,255,255,.98), transparent 100%),
+        radial-gradient(ellipse 34% 70% at 100% 48%, rgba(255,255,255,.98), transparent 100%),
+        linear-gradient(90deg, var(--page-surface) 0, transparent 15%, transparent 85%, var(--page-surface) 100%),
         linear-gradient(180deg, transparent 58%, rgba(244,242,237,.16) 72%, var(--page-surface) 100%);
     }
 
     .prompt-category-badge {
-      width: 32px;
-      height: 32px;
-      font-size: 13px;
+      width: 42px;
+      height: 42px;
+      font-size: 17px;
     }
 
     .prompt-item a {
-      max-width: 330px;
-      height: 35px;
-      padding: 0 15px;
-      font-size: 10px;
+      max-width: 420px;
+      height: 44px;
+      padding: 0 20px;
+      font-size: 12px;
     }
   }
 

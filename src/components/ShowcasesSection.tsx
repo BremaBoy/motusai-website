@@ -2,7 +2,7 @@ import { PromptWall } from './PromptWall';
 
 const promptIntroStyles = `
   .prompt-intro {
-    padding: 138px 20px 0;
+    padding: 270px 20px 0;
     text-align: center;
     background: var(--page-surface);
   }
@@ -16,7 +16,7 @@ const promptIntroStyles = `
   }
 
   @media (max-width: 760px) {
-    .prompt-intro { padding: 104px 14px 0; }
+    .prompt-intro { padding: 170px 14px 0; }
     .prompt-intro h2 { font-size: 35px; }
   }
 
