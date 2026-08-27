@@ -1,4 +1,5 @@
 import { CapabilitiesSection } from './components/CapabilitiesSection';
+import { FeaturedVideosSection } from './components/FeaturedVideosSection';
 import { FinalCta } from './components/FinalCta';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -57,6 +58,7 @@ export default function App() {
       <ExecutionSection />
       <WorkAcrossAppsSection />
       <CapabilitiesSection />
+      <FeaturedVideosSection />
       <RoadmapSection />
       <PricingSection />
       <FinalCta />
