@@ -53,9 +53,9 @@ export default function App() {
       <Header />
       <Hero />
       <ShowcasesSection />
+      <WorkAcrossAppsSection />
       <ProductPromisesSection />
       <ExecutionSection />
-      <WorkAcrossAppsSection />
       <FeaturedVideosSection />
       <RoadmapSection />
       <PricingSection />
