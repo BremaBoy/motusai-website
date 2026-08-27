@@ -18,9 +18,9 @@ const promptWallStyles = `
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 26% 72% at 0% 48%, rgba(255,255,255,1) 0%, rgba(255,255,255,.88) 28%, rgba(255,255,255,.38) 58%, transparent 100%),
-      radial-gradient(ellipse 26% 72% at 100% 48%, rgba(255,255,255,1) 0%, rgba(255,255,255,.88) 28%, rgba(255,255,255,.38) 58%, transparent 100%),
-      linear-gradient(90deg, var(--page-surface) 0, rgba(244,242,237,.7) 8%, transparent 19%, transparent 81%, rgba(244,242,237,.7) 92%, var(--page-surface) 100%),
+      radial-gradient(ellipse 16% 60% at 0% 48%, rgba(255,255,255,.58) 0%, rgba(255,255,255,.22) 44%, transparent 100%),
+      radial-gradient(ellipse 16% 60% at 100% 48%, rgba(255,255,255,.58) 0%, rgba(255,255,255,.22) 44%, transparent 100%),
+      linear-gradient(90deg, rgba(244,242,237,.72) 0, transparent 10%, transparent 90%, rgba(244,242,237,.72) 100%),
       linear-gradient(180deg, transparent 58%, rgba(244,242,237,.16) 72%, var(--page-surface) 100%);
   }
 
@@ -28,7 +28,7 @@ const promptWallStyles = `
     position: relative;
     z-index: 1;
     width: 100%;
-    margin-bottom: 14px;
+    margin-bottom: 11px;
     overflow: hidden;
   }
 
@@ -63,35 +63,35 @@ const promptWallStyles = `
     display: flex;
     flex: none;
     align-items: center;
-    gap: 12px;
-    padding-right: 12px;
+    gap: 9px;
+    padding-right: 9px;
   }
 
   .prompt-item {
     display: flex;
     flex: none;
     align-items: center;
-    gap: 12px;
+    gap: 9px;
   }
 
   .prompt-category-badge {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     flex: 0 0 auto;
     display: grid;
     place-items: center;
     border: 1px solid #dededb;
     border-radius: 50%;
     background: rgba(255,255,255,.92);
-    box-shadow: 0 5px 18px rgba(30,34,40,.07);
-    font-size: 19px;
+    box-shadow: 0 3px 12px rgba(30,34,40,.055);
+    font-size: 16px;
   }
 
   .prompt-item a {
     width: max-content;
-    max-width: min(680px, 76vw);
-    height: 50px;
-    padding: 0 25px;
+    max-width: min(560px, 74vw);
+    height: 42px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -99,12 +99,12 @@ const promptWallStyles = `
     border-radius: 999px;
     color: #28282b;
     background: rgba(255,255,255,.94);
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
-    box-shadow: 0 5px 18px rgba(27,31,38,.055);
+    box-shadow: 0 3px 12px rgba(27,31,38,.045);
     transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
   }
 
@@ -145,23 +145,23 @@ const promptWallStyles = `
 
     .prompt-wall::after {
       background:
-        radial-gradient(ellipse 34% 70% at 0% 48%, rgba(255,255,255,.98), transparent 100%),
-        radial-gradient(ellipse 34% 70% at 100% 48%, rgba(255,255,255,.98), transparent 100%),
-        linear-gradient(90deg, var(--page-surface) 0, transparent 15%, transparent 85%, var(--page-surface) 100%),
+        radial-gradient(ellipse 20% 60% at 0% 48%, rgba(255,255,255,.55), transparent 100%),
+        radial-gradient(ellipse 20% 60% at 100% 48%, rgba(255,255,255,.55), transparent 100%),
+        linear-gradient(90deg, var(--page-surface) 0, transparent 10%, transparent 90%, var(--page-surface) 100%),
         linear-gradient(180deg, transparent 58%, rgba(244,242,237,.16) 72%, var(--page-surface) 100%);
     }
 
     .prompt-category-badge {
-      width: 42px;
-      height: 42px;
-      font-size: 17px;
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
     }
 
     .prompt-item a {
-      max-width: 420px;
-      height: 44px;
-      padding: 0 20px;
-      font-size: 12px;
+      max-width: 350px;
+      height: 38px;
+      padding: 0 17px;
+      font-size: 11px;
     }
   }
 
