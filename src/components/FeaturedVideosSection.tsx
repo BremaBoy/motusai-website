@@ -421,6 +421,7 @@ const featuredVideosStyles = `
 
   .open-mail-motion, .terminal-motion, .trash-motion {
     --motion-cycle: 14s;
+    --motion-offset: 0s;
     position: relative;
     z-index: 1;
     width: calc(100% + 16px);
@@ -588,7 +589,7 @@ const featuredVideosStyles = `
   @keyframes waveform-pulse { from { transform: scaleY(.5); opacity: .7; } to { transform: scaleY(1.15); opacity: 1; } }
   @keyframes motion-spin { to { transform: rotate(360deg); } }
 
-  .terminal-motion { background: #10131b; }
+  .terminal-motion { --motion-offset: -5s; background: #10131b; }
   .terminal-desktop { position: absolute; inset: 22px 0 0; overflow: hidden; background: linear-gradient(145deg, #102838, #141a2c 54%, #241829); }
   .terminal-orb { position: absolute; border-radius: 50%; filter: blur(26px); opacity: .78; }
   .terminal-orb-one { width: 170px; height: 170px; right: -48px; top: -58px; background: #176f7e; }
@@ -645,7 +646,7 @@ const featuredVideosStyles = `
   @keyframes terminal-line-four { 0%, 74% { opacity: 0; transform: translateY(3px); } 78%, 100% { opacity: 1; transform: translateY(0); } }
   @keyframes terminal-result-in { 0%, 78% { opacity: 0; transform: translateY(6px) scale(.96); } 83%, 94% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-2px) scale(.98); } }
 
-  .trash-motion { background: #19201d; }
+  .trash-motion { --motion-offset: -10s; background: #19201d; }
   .trash-desktop { position: absolute; inset: 22px 0 0; overflow: hidden; background: radial-gradient(circle at 30% 20%, rgba(61,85,72,.9), transparent 46%), linear-gradient(145deg, #26332c, #15201a 62%, #0d1511); }
   .trash-finder-window { position: absolute; inset: 28px 8px 29px; overflow: hidden; border: 1px solid rgba(255,255,255,.24); border-radius: 8px; background: #1f2020; box-shadow: 0 18px 38px rgba(0,0,0,.5); }
   .trash-window-bar { height: 34px; display: grid; grid-template-columns: 27% 73%; border-bottom: 1px solid #111; color: #d8d8da; font-size: 5.5px; font-weight: 600; }
@@ -730,6 +731,10 @@ const featuredVideosStyles = `
   @keyframes trash-empty-button-in { 0%, 68% { opacity: 0; } 69%, 100% { opacity: 1; } }
   @keyframes trash-toolbar-actions-out { 0%, 68% { opacity: 1; } 69%, 100% { opacity: 0; } }
   @keyframes trash-notch-compact-shell { 0%, 71% { opacity: 0; transform: translateX(-50%) translateY(-5px) scale(.82); } 77%, 97% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } 100% { opacity: 0; transform: translateX(-50%) translateY(-4px) scale(.9); } }
+
+  .open-mail-motion *, .terminal-motion *, .trash-motion * {
+    animation-delay: var(--motion-offset);
+  }
 
   .featured-video-card > p {
     min-height: 104px;
