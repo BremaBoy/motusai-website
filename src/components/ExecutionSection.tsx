@@ -28,8 +28,8 @@ const styles = `
   }
 
   .execution-header { max-width: 920px; }
-  .execution .section-label { color: #646460; }
-  .execution .section-label::before { background: #8b8b86; }
+  .execution .section-label { color: #6258d6; }
+  .execution .section-label::before { background: linear-gradient(90deg, #b8afff, #6258d6); }
   .execution h2 { margin: 26px 0 22px; font-size: clamp(47px, 5.7vw, 76px); font-weight: 500; line-height: 1; letter-spacing: -.06em; }
   .execution-header p { max-width: 660px; margin: 0; color: #646460; font-size: 16px; line-height: 1.65; }
 
@@ -48,14 +48,14 @@ const styles = `
   .execution-layer small { color: #777772; font-size: 10px; }
 
   .verify-loop { position: relative; height: 360px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-content: center; }
-  .verify-step { min-height: 98px; padding: 18px; border: 1px solid rgba(21,21,21,.11); border-radius: 12px; background: #e4e4e1; display: flex; flex-direction: column; justify-content: space-between; }
+  .verify-step { min-height: 98px; padding: 18px; border: 1px solid rgba(21,21,21,.11); border-radius: 12px; background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
   .verify-step span { color: #888883; font-size: 10px; }
   .verify-step strong { font-size: 15px; font-weight: 500; }
-  .verify-result { grid-column: 1 / -1; min-height: 76px; padding: 18px 20px; display: flex; align-items: center; gap: 13px; border: 1px solid rgba(48, 151, 94, .25); border-radius: 12px; background: rgba(74, 185, 125, .13); color: #246f46; }
+  .verify-result { grid-column: 1 / -1; min-height: 76px; padding: 18px 20px; display: flex; align-items: center; gap: 13px; border: 1px solid rgba(98, 88, 214, .26); border-radius: 12px; background: rgba(98, 88, 214, .12); color: #5147bd; }
   .verify-result svg { width: 18px; }
   .verify-result div { display: grid; gap: 3px; }
   .verify-result strong { font-size: 13px; font-weight: 600; }
-  .verify-result small { color: #4f8065; font-size: 10px; }
+  .verify-result small { color: #6d66a5; font-size: 10px; }
   .verify-retry { margin-top: 25px; display: flex; align-items: center; gap: 10px; color: #6c6c67; font-size: 11px; }
   .verify-retry svg, .execution-layer svg { width: 14px; height: 14px; }
 
