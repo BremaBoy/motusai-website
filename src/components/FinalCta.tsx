@@ -10,11 +10,12 @@ const finalCtaStyles = `
     align-items: center;
     justify-content: center;
     text-align: center;
+    border: 1px solid #d9d9d5;
     border-radius: 24px;
     background:
-      radial-gradient(ellipse at 50% 115%, rgba(110, 99, 242, .95) 0%, rgba(169, 160, 255, .52) 30%, transparent 62%),
-      radial-gradient(circle at 50% 72%, rgba(255, 255, 255, .78) 0 1px, transparent 1.6px) 0 0 / 14px 14px,
-      linear-gradient(180deg, #f5f3ff 0%, #e8e4ff 100%);
+      radial-gradient(ellipse at 50% 115%, rgba(183, 183, 178, .72) 0%, rgba(220, 220, 216, .5) 31%, transparent 63%),
+      radial-gradient(circle at 50% 72%, rgba(65, 65, 61, .08) 0 1px, transparent 1.6px) 0 0 / 14px 14px,
+      linear-gradient(180deg, #f7f7f5 0%, #e9e9e6 100%);
   }
 
   .final-cta h2 {
@@ -26,7 +27,7 @@ const finalCtaStyles = `
     letter-spacing: -.06em;
   }
 
-  .final-cta p { max-width: 560px; margin: 0 0 34px; color: #5e5969; font-size: 15px; line-height: 1.6; }
+  .final-cta p { max-width: 560px; margin: 0 0 34px; color: #5e5e59; font-size: 15px; line-height: 1.6; }
 
   .final-cta .black-button {
     min-height: 46px;
@@ -38,7 +39,7 @@ const finalCtaStyles = `
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    box-shadow: 0 8px 24px rgba(27, 70, 127, .18);
+    box-shadow: 0 8px 24px rgba(24, 24, 22, .14);
   }
 
   @media (max-width: 460px) {
