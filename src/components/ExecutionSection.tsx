@@ -24,7 +24,7 @@ const styles = `
     padding: 96px clamp(28px, 5vw, 80px);
     overflow: hidden;
     border-radius: 28px;
-    background: #e3e3e0;
+    background: #fff;
   }
 
   .execution-header { max-width: 920px; }
