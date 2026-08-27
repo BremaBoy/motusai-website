@@ -320,7 +320,7 @@ const featuredVideosStyles = `
     background: #fbfbfa;
   }
 
-  .featured-videos-inner { width: 100%; margin: 0 auto; }
+  .featured-videos-inner { width: min(1480px, 100%); margin: 0 auto; }
 
   .featured-videos-heading {
     max-width: 760px;
