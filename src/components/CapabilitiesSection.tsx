@@ -11,39 +11,39 @@ type Capability = {
 
 const capabilities: Capability[] = [
   {
-    eyebrow: 'Native voice',
-    title: 'Speak naturally. Keep moving.',
-    text: 'Talk through an idea, a calculation, or the next task. Motus listens in real time and keeps the conversation ready for action.',
-    points: ['Live voice capture', 'Fast transcription', 'Hands-free follow-through'],
+    eyebrow: 'Voice-first',
+    title: 'Talk to your Mac like a person.',
+    text: 'Use your voice from anywhere on macOS. The dynamic notch keeps listening, thinking, execution, and speaking states visible without pulling you out of your work.',
+    points: ['Global activation', 'Live interruption', 'Hands-free execution'],
     media: '/product/motus-native-voice-demo.mp4',
     poster: '/product/motus-native-voice-demo-poster.jpg',
     type: 'video',
     tone: 'blue',
   },
   {
-    eyebrow: 'Connected workspace',
-    title: 'One place for every thread of work.',
-    text: 'Move from a quick question to a longer project without losing the decisions, references, and context that got you there.',
-    points: ['Persistent conversations', 'Project-ready context', 'A calmer workspace'],
+    eyebrow: 'Filesystem intelligence',
+    title: 'Find the file. Understand it. Act on it.',
+    text: 'Motus works with files and folders directly. It can search, create, rename, move, copy, organize, and reveal the content you need—using meaning, not only filenames.',
+    points: ['Native file operations', 'Content-aware search', 'Safe organization'],
     media: '/product/motus-workspace.png',
     type: 'image',
     tone: 'pearl',
   },
   {
-    eyebrow: 'Real actions',
-    title: 'Ask for the result—not the steps.',
-    text: 'Motus can open the right tool, work through the task, and bring the useful result back into your conversation.',
-    points: ['Tool-aware assistance', 'Visible progress', 'Results you can continue with'],
+    eyebrow: 'Coding',
+    title: 'From “it’s broken” to passing tests.',
+    text: 'For developer work, Motus goes beneath the editor. It can inspect project files, run shell commands, read errors and logs, make changes, and verify the fix.',
+    points: ['Diagnose from real output', 'Edit project files directly', 'Build and test the result'],
     media: '/product/motus-real-calculator-5s.mp4',
     poster: '/product/motus-real-calculator-poster.png',
     type: 'video',
     tone: 'violet',
   },
   {
-    eyebrow: 'Clearer prompts',
-    title: 'Turn a rough thought into a clear next move.',
-    text: 'Start with fragments. Motus helps shape them into a focused request, then keeps the important context close by.',
-    points: ['Prompt refinement', 'Reusable context', 'Less repetitive setup'],
+    eyebrow: 'Screen understanding',
+    title: 'Native context, with vision on demand.',
+    text: 'Motus reads the accessibility structure of the active app first—windows, controls, labels, links, and focus—then uses targeted vision when native context is not enough.',
+    points: ['Active-app awareness', 'UI hierarchy and positions', 'Targeted visual perception'],
     media: '/product/motus-prompt-capture.png',
     type: 'image',
     tone: 'sunset',
@@ -52,8 +52,8 @@ const capabilities: Capability[] = [
 
 const capabilitiesStyles = `
   .capabilities {
-    padding: 128px 20px 0;
-    background: #fbfbfa;
+    padding: 132px 20px;
+    background: var(--page-surface);
   }
 
   .capabilities-intro {
@@ -103,15 +103,15 @@ const capabilitiesStyles = `
   .capability-list {
     width: min(1400px, calc(100% - 80px));
     margin: 0 auto;
-    background: #fff;
+    background: transparent;
   }
 
   .capability-row {
     min-height: 610px;
-    padding: 20px 54px 84px;
+    padding: 48px 0;
     display: grid;
     grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
-    gap: 88px;
+    gap: 74px;
     align-items: center;
   }
 
@@ -150,12 +150,12 @@ const capabilitiesStyles = `
   .capability-copy li::before { content: '→'; font-size: 17px; }
 
   .capability-media {
-    min-height: 560px;
+    min-height: 520px;
     padding: 36px;
     display: grid;
     place-items: center;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 22px;
   }
 
   .capability-media[data-tone='blue'] {
@@ -179,7 +179,7 @@ const capabilitiesStyles = `
     width: 100%;
     max-height: 500px;
     border: 1px solid rgba(255, 255, 255, .55);
-    border-radius: 6px;
+    border-radius: 12px;
     background: #fff;
     box-shadow: 0 32px 80px rgba(17, 22, 50, .24);
     object-fit: cover;
@@ -212,9 +212,9 @@ export function CapabilitiesSection() {
       <style href="capabilities-styles" precedence="default">{capabilitiesStyles}</style>
       <section className="capabilities" id="features">
         <div className="capabilities-intro">
-          <span>Motus in motion</span>
-          <h2>Your chat, built for more than answers.</h2>
-          <p>Move from speaking to planning, calculating, researching, and creating—without rebuilding the context every time.</p>
+          <span>Made for real work</span>
+          <h2>One request. Every tool it needs.</h2>
+          <p>Motus combines natural conversation with direct access to the Mac beneath it—so a request can move through files, apps, code, and the web without losing the goal.</p>
         </div>
 
         <div className="capability-list">

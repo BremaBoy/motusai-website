@@ -2,33 +2,36 @@ const finalCtaStyles = `
   .final-cta {
     position: relative;
     width: calc(100vw - 40px);
-    min-height: 420px;
-    margin: 0 auto 118px;
+    min-height: 480px;
+    margin: 0 auto 110px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-radius: 18px;
+    border-radius: 24px;
     background:
-      radial-gradient(ellipse at 50% 108%, rgba(72, 137, 244, .95) 0%, rgba(120, 190, 248, .58) 26%, transparent 57%),
-      radial-gradient(circle at 50% 72%, rgba(255, 255, 255, .85) 0 1px, transparent 1.6px) 0 0 / 14px 14px,
-      linear-gradient(180deg, #f1f9fd 0%, #e9f5fb 100%);
+      radial-gradient(ellipse at 50% 115%, rgba(110, 99, 242, .95) 0%, rgba(169, 160, 255, .52) 30%, transparent 62%),
+      radial-gradient(circle at 50% 72%, rgba(255, 255, 255, .78) 0 1px, transparent 1.6px) 0 0 / 14px 14px,
+      linear-gradient(180deg, #f5f3ff 0%, #e8e4ff 100%);
   }
 
   .final-cta h2 {
-    margin: 0 0 32px;
-    font-size: clamp(38px, 4.6vw, 56px);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -.045em;
+    max-width: 820px;
+    margin: 0 0 22px;
+    font-size: clamp(46px, 5.6vw, 72px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -.06em;
   }
 
+  .final-cta p { max-width: 560px; margin: 0 0 34px; color: #5e5969; font-size: 15px; line-height: 1.6; }
+
   .final-cta .black-button {
-    min-height: 42px;
-    padding: 0 21px;
-    border-radius: 10px;
+    min-height: 46px;
+    padding: 0 24px;
+    border-radius: 999px;
     background: #111;
     color: #fff;
     display: inline-flex;
@@ -48,9 +51,10 @@ export function FinalCta() {
   return (
     <>
       <style href="final-cta-styles" precedence="default">{finalCtaStyles}</style>
-      <section className="final-cta">
-        <h2>Your chat can do more.<br />Start moving with Motus today.</h2>
-        <a className="black-button" href="#top">Download for Mac ↗</a>
+      <section className="final-cta" id="waitlist" aria-labelledby="final-cta-title">
+        <h2 id="final-cta-title">Your Mac can do more than wait for clicks.</h2>
+        <p>Give Motus a goal and stay focused on what matters. Join the beta to be among the first to put your Mac to work.</p>
+        <a className="black-button" href="mailto:hello@motus.ai?subject=Motus%20beta%20access">Join the beta ↗</a>
       </section>
     </>
   );

@@ -8,13 +8,13 @@ const headerStyles = `
     left: 0;
     right: 0;
     z-index: 30;
-    height: 82px;
+    height: 76px;
     padding: 0 max(28px, calc((100vw - 1100px) / 2));
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
     background: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, .16);
+    border-bottom: 1px solid rgba(255, 255, 255, .13);
     color: #fff;
   }
 
@@ -23,7 +23,7 @@ const headerStyles = `
     display: inline-flex;
     align-items: center;
     gap: 11px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     letter-spacing: -.03em;
   }
@@ -37,7 +37,7 @@ const headerStyles = `
   .site-nav {
     display: flex;
     align-items: center;
-    gap: 42px;
+    gap: 34px;
     color: rgba(255, 255, 255, .72);
     font-size: 13px;
   }
@@ -111,10 +111,11 @@ const headerStyles = `
 `;
 
 const navItems = [
-  { label: 'Product', href: '#products' },
+  { label: 'Product', href: '#product' },
   { label: 'Features', href: '#features' },
-  { label: 'How it works', href: '#products' },
-  { label: 'Details', href: '#pricing' },
+  { label: 'How it works', href: '#how-it-works' },
+  { label: 'Roadmap', href: '#roadmap' },
+  { label: 'Pricing', href: '#pricing' },
 ];
 
 export function Header() {
@@ -134,7 +135,7 @@ export function Header() {
           {navItems.map((item) => <a href={item.href} key={item.label}>{item.label}</a>)}
         </nav>
 
-        <a className="header-cta" href="#pricing">Get early access</a>
+        <a className="header-cta" href="#waitlist">Join the beta</a>
 
         <button
           className="menu-button"
@@ -148,7 +149,7 @@ export function Header() {
 
         <nav className={`mobile-nav ${open ? 'open' : ''}`} aria-label="Mobile navigation">
           {navItems.map((item) => <a href={item.href} key={item.label} onClick={closeMenu}>{item.label}</a>)}
-          <a className="header-cta" href="#pricing" onClick={closeMenu}>Get early access</a>
+          <a className="header-cta" href="#waitlist" onClick={closeMenu}>Join the beta</a>
         </nav>
       </header>
     </>

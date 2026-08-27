@@ -647,7 +647,7 @@ const featuredVideosStyles = `
 
   .trash-motion { background: #19201d; }
   .trash-desktop { position: absolute; inset: 22px 0 0; overflow: hidden; background: radial-gradient(circle at 30% 20%, rgba(61,85,72,.9), transparent 46%), linear-gradient(145deg, #26332c, #15201a 62%, #0d1511); }
-  .trash-finder-window { position: absolute; inset: 28px 8px 29px; overflow: hidden; border: 1px solid rgba(255,255,255,.24); border-radius: 8px; background: #1f2020; box-shadow: 0 18px 38px rgba(0,0,0,.5); animation: trash-window-breathe var(--motion-cycle) ease infinite; }
+  .trash-finder-window { position: absolute; inset: 28px 8px 29px; overflow: hidden; border: 1px solid rgba(255,255,255,.24); border-radius: 8px; background: #1f2020; box-shadow: 0 18px 38px rgba(0,0,0,.5); }
   .trash-window-bar { height: 34px; display: grid; grid-template-columns: 27% 73%; border-bottom: 1px solid #111; color: #d8d8da; font-size: 5.5px; font-weight: 600; }
   .trash-toolbar-side { display: flex; align-items: center; padding: 0 8px; border-right: 1px solid #161717; background: #484b4b; }
   .trash-toolbar-main { position: relative; display: flex; align-items: center; gap: 7px; min-width: 0; padding: 0 8px; background: #202121; }
@@ -715,12 +715,12 @@ const featuredVideosStyles = `
   .motion-trash-can img { position: absolute; inset: -2px; width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 3px 3px rgba(0,0,0,.32)); }
   .trash-icon-empty { animation: trash-empty-icon-out var(--motion-cycle) steps(1) infinite; }
   .trash-icon-full { opacity: 0; animation: trash-full-icon-in var(--motion-cycle) steps(1) infinite; }
+  .trash-notch-compact { animation-name: trash-notch-compact-shell; }
 
-  @keyframes trash-window-breathe { 0%, 94% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.99); } }
   @keyframes focus-app-to-trash { 0%, 58% { opacity: 1; transform: translate(0,0) scale(1); } 65% { opacity: 1; transform: translate(86px,72px) scale(.55) rotate(7deg); } 70%, 100% { opacity: 0; transform: translate(205px,128px) scale(.18) rotate(14deg); } }
   @keyframes trash-apps-view-out { 0%, 68% { opacity: 1; } 69%, 100% { opacity: 0; } }
   @keyframes trash-bin-view-in { 0%, 68% { opacity: 0; } 69%, 100% { opacity: 1; } }
-  @keyframes trashed-app-in { 0%, 70% { opacity: 0; transform: translateY(8px) scale(.9); } 74%, 96% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; } }
+  @keyframes trashed-app-in { 0%, 70% { opacity: 0; transform: translateY(8px) scale(.9); } 74%, 99% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; } }
   @keyframes trash-title-apps-out { 0%, 68% { opacity: 1; } 69%, 100% { opacity: 0; } }
   @keyframes trash-title-bin-in { 0%, 68% { opacity: 0; } 69%, 100% { opacity: 1; } }
   @keyframes trash-app-row-out { 0%, 68% { color: #fff; background: #696c6c; } 69%, 100% { color: #dededf; background: transparent; } }
@@ -729,6 +729,7 @@ const featuredVideosStyles = `
   @keyframes trash-full-icon-in { 0%, 68% { opacity: 0; } 69%, 100% { opacity: 1; } }
   @keyframes trash-empty-button-in { 0%, 68% { opacity: 0; } 69%, 100% { opacity: 1; } }
   @keyframes trash-toolbar-actions-out { 0%, 68% { opacity: 1; } 69%, 100% { opacity: 0; } }
+  @keyframes trash-notch-compact-shell { 0%, 71% { opacity: 0; transform: translateX(-50%) translateY(-5px) scale(.82); } 77%, 97% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); } 100% { opacity: 0; transform: translateX(-50%) translateY(-4px) scale(.9); } }
 
   .featured-video-card > p {
     min-height: 104px;

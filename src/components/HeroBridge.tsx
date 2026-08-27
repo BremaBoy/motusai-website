@@ -76,7 +76,7 @@ const heroBridgeStyles = `
     position: absolute;
     z-index: 2;
     left: 50%;
-    top: 405px;
+    top: 420px;
     width: min(900px, calc(100% - 44px));
     transform: translateX(-50%);
     padding: 20px;
@@ -91,7 +91,7 @@ const heroBridgeStyles = `
     -webkit-backdrop-filter: blur(18px) saturate(125%);
     backdrop-filter: blur(18px) saturate(125%);
     animation: window-float 7s ease-in-out infinite;
-    margin-top: 210px;
+    margin-top: 175px;
     isolation: isolate;
   }
 
@@ -130,7 +130,7 @@ const heroBridgeStyles = `
   .bridge-scroll {
     position: absolute;
     left: 50%;
-    bottom: 24px;
+    bottom: 18px;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -226,7 +226,7 @@ export function HeroBridge() {
             </picture>
           </div>
         </div>
-        <a className="bridge-scroll" href="#products"><span>Explore possibilities</span><b>↓</b></a>
+        <a className="bridge-scroll" href="#product"><span>Explore what Motus can do</span><b>↓</b></a>
       </div>
     </>
   );

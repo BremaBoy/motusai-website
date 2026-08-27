@@ -27,14 +27,15 @@ const workTools: WorkTool[] = [
 const workAcrossAppsStyles = `
   .work-across-apps {
     padding: 0 20px;
-    background: #fbfbfa;
+    background: var(--page-surface);
   }
 
   .work-across-apps-inner {
     width: 100%;
-    margin: 0 auto;
-    padding: 104px 54px 104px;
+    margin: 24px auto 0;
+    padding: 116px 54px 110px;
     text-align: center;
+    border-radius: 26px;
     background: #fff;
   }
 
@@ -135,7 +136,8 @@ export function WorkAcrossAppsSection() {
       <style href="work-across-apps-styles" precedence="default">{workAcrossAppsStyles}</style>
       <section className="work-across-apps" aria-labelledby="work-across-apps-title">
         <div className="work-across-apps-inner">
-          <h2 id="work-across-apps-title">Bring every part of your work into one conversation.</h2>
+          <span className="section-label">Across your Mac</span>
+          <h2 id="work-across-apps-title">Work that moves with you.</h2>
 
           <div className="work-tool-grid" aria-label="Tools Motus can work across">
             {workTools.map(({ label, icon }) => (
@@ -146,7 +148,7 @@ export function WorkAcrossAppsSection() {
           </div>
 
           <p className="work-across-apps-copy">
-            Motus helps you move between messages, files, research, planning, and everyday tools without losing the request—or the context behind it.
+            From Safari to Finder, Notes to Terminal, Motus can combine the tools already on your Mac into one continuous workflow—without losing the request or the context behind it.
           </p>
         </div>
       </section>
